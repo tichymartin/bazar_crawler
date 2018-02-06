@@ -3,18 +3,19 @@ import requests
 from bs4 import BeautifulSoup
 import urllib.request
 
+
 def get_data_sbazar(link):
     source_code = requests.get(link).text
     soup = BeautifulSoup(source_code, "html.parser")
 
     img = soup.findAll("img")[2]["src"]
-    print(img)
+
     if img.startswith(r"//img.sbazar.cz"):
         img_link = "https:" + img
     else:
         img_link = "https://www.sbazar.cz/img/logo-sbazar.png"
 
-    print(img_link)
+    # print(img_link)
 
     title = soup.title.string
     # print(title + "\n" + link)
@@ -58,7 +59,7 @@ def get_data_bazos(link):
         img_link = img.split("?t=")[0]
     else:
         img_link = "https://www.bazos.cz/obrazky/bazos.gif"
-    print(img_link)
+    # print(img_link)
 
     title = soup.title.string
     title_split = str(title)
@@ -84,11 +85,11 @@ def get_data_bazos(link):
     return words_set, title, price, user, img_link
 
 
-def get_jpg(url):
-    name = url.split("/")[-1]
-    path = r"crawler_files/" + name
-    print(name)
-    urllib.request.urlretrieve(url, path)
+def get_image_from_url(url):
+    img_name = url.split("/")[-1]
+    img_path = r"crawler_files/" + img_name
+    urllib.request.urlretrieve(url, img_path)
+    return img_path
 
 
 if __name__ == "__main__":

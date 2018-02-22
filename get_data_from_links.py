@@ -2,6 +2,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 import urllib.request
+from PIL import Image
 
 
 # class LinkFinder:
@@ -177,6 +178,9 @@ def get_data_sbazar(link):
         pass
     data["user"] = user
 
+    # get location
+    location = soup.find("span",{"itemprop":"addressRegion"}).text
+    data["location"] = str(location)
     # get words
     try:
         body = soup.find("span", itemprop="description").contents[0]
@@ -187,7 +191,7 @@ def get_data_sbazar(link):
         pass
 
     title_body = title + " " + body
-    print(title_body)
+    # print(title_body)
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     words_set = set(title_body.lower().split())
     data["words_set"] = words_set
@@ -228,6 +232,10 @@ def get_data_bazos(link):
     price = str(tabulka.find_next("b").find_next("b").string)
     data["price"] = price
 
+    # get location
+    location = soup.findAll("a", {"rel": "nofollow"})[2].text
+    data["location"] = str(location)
+
     # get words
     body_list = soup.find("div", {"class": "popis"}).contents
     body_string = " ".join(str(i) for i in body_list)
@@ -241,8 +249,29 @@ def get_data_bazos(link):
     return data
 
 
+# def get_image_from_url(img_url):
+#     img_name = img_url.split("/")[-1]
+#     img_path = r"crawler_files/" + img_name
+#     urllib.request.urlretrieve(img_url, img_path)
+#     return img_path
+
+
 def get_image_from_url(url):
     img_name = url.split("/")[-1]
     img_path = r"crawler_files/" + img_name
     urllib.request.urlretrieve(url, img_path)
+
+    # resize image
+    basewidth = 300
+    img = Image.open(img_path)
+    wpercent = (basewidth / float(img.size[0]))
+    hsize = int((float(img.size[1]) * float(wpercent)))
+    img = img.resize((basewidth, hsize), Image.ANTIALIAS)
+    img.save(img_path)
+
     return img_path
+
+
+if __name__ == "__main__":
+    img_url = "https://www.bazos.cz/img/1/342/85363342.jpg"
+    print(get_image_from_url(img_url))

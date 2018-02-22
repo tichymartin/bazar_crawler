@@ -20,4 +20,4 @@ for page in project_list:
 end = time.time()
 end_time = str(end - timer)
 print(end_time)
-logger.info("crawler ended in " + end_time)
+logger.info("crawler ended in ; " + end_time)

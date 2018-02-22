@@ -100,8 +100,11 @@ def compare_words(data, link, stopword_set, keyword_set):
 
     elif keyword_set.intersection(data["words_set"]):
         result = set.intersection(keyword_set, data["words_set"])
-        send_mail(result, data["title"], link, data["price"], data["img_link"])
-        # print("test email odeslan")
+        send_mail(result, data["title"], link, data["price"], data["img_url"])
+        # print("test email odesilan")
+        # print("data - result", result)
+        # print("data - title ", data["title"])
+        # print("data - link, price, img", link, data["price"], data["img_url"])
         # logger.info("email send - " + link)
     else:
         pass

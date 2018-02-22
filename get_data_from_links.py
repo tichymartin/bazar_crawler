@@ -4,37 +4,180 @@ from bs4 import BeautifulSoup
 import urllib.request
 
 
+# class LinkFinder:
+#     def __init__(self, url):
+#         self.url = url
+#         self.link_list = []
+#
+#     def get_links_sbazar(self):
+#         source_code = requests.get(r"http://www.sbazar.cz/" + self.url).text
+#         soup = BeautifulSoup(source_code, "html.parser")
+#         links = soup.find("div", id="mrEggsResults").find_all("a", class_="mrEggPart")
+#
+#         for line in links:
+#             link = line.get("href")
+#             self.link_list.append("http://www.sbazar.cz" + link)
+#
+#         return self.link_list
+#
+#     def get_links_bazos(self):
+#         link_address = self.url.split("/", 1).pop(0)
+#
+#         source_code = requests.get("https://" + project).text
+#         soup = BeautifulSoup(source_code, "html.parser")
+#
+#         for line in soup.find_all("a"):
+#             link = line.get("href").startswith("/inzerat")
+#             if link is True:
+#                 self.link_list.append("https://" + link_address + line.get("href"))
+#
+#         link_list = set(self.link_list)
+#         return link_list
+#
+#     def __repr__(self):
+#         return f"link finder for url: {self.url}"
+
+
+# class Crawler:
+#     def __init__(self, url):
+#         self.url = url
+#
+#     def get_data_bazos(self):
+#         data = {}
+#         source_code = requests.get(self.url).text
+#         soup = BeautifulSoup(source_code, "html.parser")
+#
+#         # get img url
+#         img = soup.findAll("img")[1]["src"]
+#         if img.startswith("https://www.bazos.cz/img"):
+#             img_url = img.split("?t=")[0]
+#         else:
+#             img_url = "https://www.bazos.cz/obrazky/bazos.gif"
+#
+#         data["img_url"] = img_url
+#
+#         # get title
+#         title_string = str(soup.title.string)
+#         data["title"] = title_string
+#
+#         # get user
+#         tabulka = soup.find("table", cellspacing=1).find_next("td").find_next_sibling("td")
+#         user = tabulka.find_next("b").string
+#         user = user.lower()
+#         data["user"] = user
+#
+#         # get price
+#         price = str(tabulka.find_next("b").find_next("b").string)
+#         data["price"] = price
+#
+#         # get words
+#         body_list = soup.find("div", {"class": "popis"}).contents
+#         body_string = " ".join(str(i) for i in body_list)
+#         body_string = body_string + title_string
+#         body_string = body_string.replace(
+#             "<br>", "").replace("<br/>", "").replace("</br>", "").replace("\\r","").replace("\\n", "")
+#         body_string = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', body_string)
+#         words_set = set(body_string.lower().split())
+#
+#         data["words_set"] = words_set
+#
+#         return data
+#
+#     def get_data_sbazar(self):
+#         data = {}
+#         source_code = requests.get(self.url).text
+#         soup = BeautifulSoup(source_code, "html.parser")
+#
+#         # get img url
+#         img = soup.findAll("img")[2]["src"]
+#
+#         if img.startswith(r"//img.sbazar.cz"):
+#             img_url = "https:" + img
+#         else:
+#             img_url = "https://www.sbazar.cz/img/logo-sbazar.png"
+#         data["img_url"] = img_url
+#
+#         # get title
+#         title = str(soup.title.string)
+#         data["title"] = title
+#
+#         # get price
+#         try:
+#             price = str(soup.find("span", itemprop="price").contents[0])
+#         except IndexError:
+#             price = "cena neuvedena"
+#             pass
+#         data["price"] = price
+#
+#         # get user
+#         try:
+#             user = soup.find("dd", itemprop="familyName").contents[0].string
+#             user = user.lower()
+#
+#         except IndexError:
+#             user = "anonymní uživatel"
+#             # print("nema uzivatele")
+#             pass
+#         data["user"] = user
+#
+#         # get words
+#         try:
+#             body = soup.find("span", itemprop="description").contents[0]
+#
+#         except IndexError:
+#             body = "inzerát bez textu"
+#             # print("nemá text")
+#             pass
+#
+#         title_body = title + " " + body
+#         title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
+#         words_set = set(title_body.lower().split())
+#         data["words_set"] = words_set
+#
+#         return data
+#
+#     def __repr__(self):
+#         return f"crawler class for url: {self.url}"
+
+
 def get_data_sbazar(link):
+    data = {}
     source_code = requests.get(link).text
     soup = BeautifulSoup(source_code, "html.parser")
 
+    # get img url
     img = soup.findAll("img")[2]["src"]
 
     if img.startswith(r"//img.sbazar.cz"):
-        img_link = "https:" + img
+        img_url = "https:" + img
     else:
-        img_link = "https://www.sbazar.cz/img/logo-sbazar.png"
+        img_url = "https://www.sbazar.cz/img/logo-sbazar.png"
+    data["img_url"] = img_url
 
-    # print(img_link)
+    # get title
+    title = str(soup.title.string)
+    data["title"] = title
 
-    title = soup.title.string
-    # print(title + "\n" + link)
-
+    # get price
     try:
-        price = soup.find("span", itemprop="price").contents[0]
+        price = str(soup.find("span", itemprop="price").contents[0])
     except IndexError:
         price = "cena neuvedena"
         pass
+    data["price"] = price
 
+    # get user
     try:
         user = soup.find("dd", itemprop="familyName").contents[0].string
         user = user.lower()
 
     except IndexError:
-        user = ""
+        user = "anonymní uživatel"
         # print("nema uzivatele")
         pass
+    data["user"] = user
 
+    # get words
     try:
         body = soup.find("span", itemprop="description").contents[0]
 
@@ -44,45 +187,58 @@ def get_data_sbazar(link):
         pass
 
     title_body = title + " " + body
+    print(title_body)
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     words_set = set(title_body.lower().split())
+    data["words_set"] = words_set
 
-    return words_set, title, price, user, img_link
+    return data
 
 
 def get_data_bazos(link):
+    data = {}
     source_code = requests.get(link).text
     soup = BeautifulSoup(source_code, "html.parser")
 
+    # get img url
     img = soup.findAll("img")[1]["src"]
     if img.startswith("https://www.bazos.cz/img"):
-        img_link = img.split("?t=")[0]
+        img_url = img.split("?t=")[0]
     else:
-        img_link = "https://www.bazos.cz/obrazky/bazos.gif"
-    # print(img_link)
+        img_url = "https://www.bazos.cz/obrazky/bazos.gif"
 
-    title = soup.title.string
-    title_split = str(title)
-    title_split = title_split.replace("<br>", "").replace("<br/>", "").replace("\\r", "").replace("\\n", "")
-    title_split = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_split)
-    title_set = set(title_split.lower().split())
-    # print(title + "\n" + link)
+    data["img_url"] = img_url
 
+    # get title
+    title_string = str(soup.title.string)
+    data["title"] = title_string
+
+    # title_split = str(title)
+    # title_split = title_split.replace("<br>", "").replace("<br/>", "").replace("\\r", "").replace("\\n", "")
+    # title_split = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_split)
+    # title_set = set(title_split.lower().split())
+
+    # get user
     tabulka = soup.find("table", cellspacing=1).find_next("td").find_next_sibling("td")
-
     user = tabulka.find_next("b").string
     user = user.lower()
+    data["user"] = user
 
-    price = tabulka.find_next("b").find_next("b").string
+    # get price
+    price = str(tabulka.find_next("b").find_next("b").string)
+    data["price"] = price
 
-    text = soup.find("div", {"class": "popis"}).contents
-    string = str(text)
-    string = string.replace("<br>", "").replace("<br/>", "").replace("</br>", "").replace("\\r", "").replace("\\n", "")
-    string = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', string)
-    words_set = set(string.lower().split())
+    # get words
+    body_list = soup.find("div", {"class": "popis"}).contents
+    body_string = " ".join(str(i) for i in body_list)
+    body_string = body_string + title_string
+    body_string = body_string.replace("<br>", "").replace("<br/>", "").replace("</br>", "").replace("\\r", "").replace("\\n", "")
+    body_string = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', body_string)
+    words_set = set(body_string.lower().split())
 
-    words_set = words_set.union(title_set)
-    return words_set, title, price, user, img_link
+    data["words_set"] = words_set
+
+    return data
 
 
 def get_image_from_url(url):
@@ -90,16 +246,3 @@ def get_image_from_url(url):
     img_path = r"crawler_files/" + img_name
     urllib.request.urlretrieve(url, img_path)
     return img_path
-
-
-if __name__ == "__main__":
-
-    # test_link = "https://nabytek.bazos.cz/inzerat/85338401/Prodam-sedacku-a-stolek-z-palet.php"
-    # get_data_bazos(test_link)
-
-    # test_link = "http://www.sbazar.cz/prenosilova111/detail/27642202-starozitna-skrin-orechove-drevo"
-    # get_data_sbazar(test_link)
-
-    img_links = ["https://img.sbazar.cz/big-lq/201801/2812/ed/5a6dc0f1edcdc506edde0100.jpg", "https://www.bazos.cz/img/1/769/85266769.jpg", "https://www.bazos.cz/obrazky/bazos.gif", "https://www.sbazar.cz/img/logo-sbazar.png"]
-    for i in img_links:
-        get_jpg(i)

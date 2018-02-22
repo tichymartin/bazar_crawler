@@ -16,7 +16,7 @@ def get_links_sbazar(project):
 
     source_code = requests.get(r"http://www.sbazar.cz/" + project).text
     soup = BeautifulSoup(source_code, "html.parser")
-    links = soup.find("div", id="mrEggsResults").find_all("a",class_="mrEggPart")
+    links = soup.find("div", id="mrEggsResults").find_all("a", class_="mrEggPart")
 
     for line in links:
         link = line.get("href")
@@ -25,17 +25,42 @@ def get_links_sbazar(project):
     return link_list
 
 
+# def get_links_bazos(project):
+#     link_list = []
+#     link_address = project.split("/", 1).pop(0)
+#
+#     source_code = requests.get("https://" + project).text
+#     soup = BeautifulSoup(source_code, "html.parser")
+#
+#     for line in soup.find_all("a"):
+#         link = line.get("href").startswith("/inzerat")
+#         if link is True:
+#             link_list.append("https://" + link_address + line.get("href"))
+#
+#     link_list = set(link_list)
+#     return link_list
+
+
 def get_links_bazos(project):
     link_list = []
-    link_address = project.split("/", 1).pop(0)
+    counter = 0
+    while True:
 
-    source_code = requests.get("https://" + project).text
-    soup = BeautifulSoup(source_code, "html.parser")
+        link_address = project.split("/", 1).pop(0)
+        link = "https://" + project + "/" + str(counter) + "/"
+        source_code = requests.get(link).text
+        soup = BeautifulSoup(source_code, "html.parser")
 
-    for line in soup.find_all("a"):
-        link = line.get("href").startswith("/inzerat")
-        if link is True:
-            link_list.append("https://" + link_address + line.get("href"))
+        for line in soup.find_all("a"):
+            link = line.get("href").startswith("/inzerat")
+            if link is True:
+                link_list.append("https://" + link_address + line.get("href"))
+
+        top = soup.findAll("span", {"class": "ztop"})
+        if len(top) == 0:
+            break
+        counter += 20
+
 
     link_list = set(link_list)
     return link_list
@@ -52,31 +77,30 @@ def search_links(project):
         queue_list = get_links_bazos(project)
 
     for link in queue_list:
-        print("kontroluju", link)
+        # print("kontroluju", link)
 
         if select_link_from_db(link):
-            print("prochazim", link)
+            # print("prochazim", link)
             if link.startswith("http://www.sbazar.cz"):
                 data = get_data_sbazar(link)
             else:
                 data = get_data_bazos(link)
-
-            compare_words(*data, link, stopword_set, keyword_set)
+            compare_words(data, link, stopword_set, keyword_set)
 
         else:
             continue
 
 
-def compare_words(words_set, title, price, user, img_link, link, stopword_set, keyword_set):
+def compare_words(data, link, stopword_set, keyword_set):
 
-    if not select_stopuser(user):
+    if not select_stopuser(data["user"]):
         pass
-    elif stopword_set.intersection(words_set):
+    elif stopword_set.intersection(data["words_set"]):
         pass
 
-    elif keyword_set.intersection(words_set):
-        result = set.intersection(keyword_set, words_set)
-        send_mail(result, title, link, price, img_link)
+    elif keyword_set.intersection(data["words_set"]):
+        result = set.intersection(keyword_set, data["words_set"])
+        send_mail(result, data["title"], link, data["price"], data["img_link"])
         # print("test email odeslan")
         # logger.info("email send - " + link)
     else:
@@ -116,7 +140,7 @@ def send_mail(result, title, link, price, img_link):
     # server.sendmail(fromaddr, toaddr, msg)
     server.send_message(msg)
     server.quit()
-    logger.info("email send - " + link)
+    logger.info("email send ; " + link)
 
     print("email odeslán")
 
@@ -127,11 +151,15 @@ def start(project):
 
 
 if __name__ == "__main__":
-    page1 = [r"219-starozitny-nabytek", r"nabytek.bazos.cz/kresla/"]
-    page = [r"nabytek.bazos.cz/kresla/"]
-    for i in page:
-        print("testuju", i)
-        start(i)
+    # page1 = [r"219-starozitny-nabytek", r"nabytek.bazos.cz/kresla/"]
+    # page = [r"nabytek.bazos.cz/kresla/"]
+    # for i in page:
+    #     print("testuju", i)
+    #     start(i)
+    #
+    # # test_link = "https://stroje.bazos.cz/inzerat/84820308/Koupim-kompresor-PKD-6-nebo-12.php"
+    # # get_words_bazos(test_link)
 
-    # test_link = "https://stroje.bazos.cz/inzerat/84820308/Koupim-kompresor-PKD-6-nebo-12.php"
-    # get_words_bazos(test_link)
+    test = get_links_bazos("nabytek.bazos.cz/zidle")
+    print(test)
+    print(len(test))

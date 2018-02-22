@@ -95,7 +95,7 @@ def setup_logger(name=__name__):
     handler = logging.FileHandler('crawler.log')
 
     # create a logging format
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s ; %(name)s ; %(levelname)s ; %(message)s')
     handler.setFormatter(formatter)
 
     # add the handlers to the logger

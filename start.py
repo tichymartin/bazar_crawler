@@ -7,7 +7,7 @@ logger = setup_logger("start")
 timer = time.time()
 
 project_list_sbazar = [r"524-jidelni-stoly-zidle", r"300-kresla", r"219-starozitny-nabytek"]
-project_list_bazos = ["nabytek.bazos.cz/kresla/", "nabytek.bazos.cz/zidle/", "ostatni.bazos.cz"]
+project_list_bazos = ["nabytek.bazos.cz/kresla", "nabytek.bazos.cz/zidle", "ostatni.bazos.cz"]
 # project_list_sbazar = [r"524-jidelni-stoly-zidle"]
 # project_list_bazos = ["nabytek.bazos.cz/kresla/"]
 

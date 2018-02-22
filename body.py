@@ -100,7 +100,7 @@ def compare_words(data, link, stopword_set, keyword_set):
 
     elif keyword_set.intersection(data["words_set"]):
         result = set.intersection(keyword_set, data["words_set"])
-        send_mail(result, data["title"], link, data["price"], data["img_url"])
+        send_mail(result, data["title"], link, data["price"], data["img_url"], data["location"])
         # print("test email odesilan")
         # print("data - result", result)
         # print("data - title ", data["title"])
@@ -110,7 +110,7 @@ def compare_words(data, link, stopword_set, keyword_set):
         pass
 
 
-def send_mail(result, title, link, price, img_link):
+def send_mail(result, title, link, price, img_link, location):
 
     img_path = get_image_from_url(img_link)
 
@@ -130,7 +130,7 @@ def send_mail(result, title, link, price, img_link):
     msg["From"] = from_addr
     msg["To"] = to_addr
 
-    body = "cena: "+ price + "\n" + "klíčová slova: " + keywords + "\n" + title + "\n" + link
+    body = "cena: "+ price + "\n" + "Místo: " + location + "\n" + "klíčová slova: " + keywords + "\n" + title + "\n" + link
     msg.attach(MIMEText(body, 'plain'))
     msg.attach(msg_image)
 
@@ -163,6 +163,6 @@ if __name__ == "__main__":
     # # test_link = "https://stroje.bazos.cz/inzerat/84820308/Koupim-kompresor-PKD-6-nebo-12.php"
     # # get_words_bazos(test_link)
 
-    test = get_links_bazos("nabytek.bazos.cz/zidle")
-    print(test)
-    print(len(test))
+    test = get_links_sbazar("300-kresla")
+    for i in test:
+        get_data_sbazar(i)

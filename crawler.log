@@ -376,3 +376,10 @@
 2018-02-22 19:51:05,450 ; start ; INFO ; crawler ended in 3.733833074569702
 2018-02-22 19:52:08,735 ; email ; INFO ; email send ; http://www.sbazar.cz/jaroslav.67/detail/28112391-stul
 2018-02-22 19:52:10,433 ; start ; INFO ; crawler ended in 8.593202829360962
+2018-02-22 20:31:08,108 ; email ; INFO ; email send - https://nabytek.bazos.cz/inzerat/86128908/Kresla-retro--taburet.php
+2018-02-22 20:31:11,230 ; email ; INFO ; email send - https://nabytek.bazos.cz/inzerat/86131195/Barove-zidle.php
+2018-02-22 20:31:29,386 ; email ; INFO ; email send - http://www.sbazar.cz/superlala/detail/28112643-barove-zidle
+2018-02-22 20:31:29,875 ; email ; INFO ; email send - http://www.sbazar.cz/jaroslav.67/detail/28112391-stul
+2018-02-22 20:31:46,297 ; email ; INFO ; email send - http://www.sbazar.cz/halcahalca2/detail/27895187-retro-kreslo-usak-70-leta
+2018-02-22 20:31:53,859 ; email ; INFO ; email send - http://www.sbazar.cz/blecha.jirka/detail/28112442-chromovy-nabytek
+2018-02-22 20:32:03,707 ; start ; INFO ; crawler ended in ; 58.135737657547

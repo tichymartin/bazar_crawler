@@ -262,11 +262,13 @@ def get_image_from_url(url):
     urllib.request.urlretrieve(url, img_path)
 
     # resize image
-    basewidth = 300
+    base_h = 200
     img = Image.open(img_path)
-    wpercent = (basewidth / float(img.size[0]))
-    hsize = int((float(img.size[1]) * float(wpercent)))
-    img = img.resize((basewidth, hsize), Image.ANTIALIAS)
+
+    h_percent = (base_h / float(img.size[1]))
+    w_size = int((float(img.size[0]) * float(h_percent)))
+
+    img = img.resize((w_size, base_h), Image.ANTIALIAS)
     img.save(img_path)
 
     return img_path

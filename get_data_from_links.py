@@ -262,7 +262,7 @@ def get_image_from_url(url):
     urllib.request.urlretrieve(url, img_path)
 
     # resize image
-    base_h = 200
+    base_h = 100
     img = Image.open(img_path)
 
     h_percent = (base_h / float(img.size[1]))
@@ -275,5 +275,8 @@ def get_image_from_url(url):
 
 
 if __name__ == "__main__":
-    img_url = "https://www.bazos.cz/img/1/342/85363342.jpg"
+    img_url = 'https://www.bazos.cz/img/1/679/86706679.jpg'
     print(get_image_from_url(img_url))
+
+    # link = "https://nabytek.bazos.cz/inzerat/86706679/kuchynske-zidle.php"
+    # print(get_data_bazos(link))

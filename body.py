@@ -100,7 +100,7 @@ def compare_words(data, link, stopword_set, keyword_set):
 
     elif keyword_set.intersection(data["words_set"]):
         result = set.intersection(keyword_set, data["words_set"])
-        # send_mail(result, data["title"], link, data["price"], data["img_url"], data["location"])
+        send_mail(result, data, link)
         print("test email odesilan")
         # print("data - result", result)
         # print("data - title ", data["title"])
@@ -110,9 +110,9 @@ def compare_words(data, link, stopword_set, keyword_set):
         pass
 
 
-def send_mail(result, title, link, price, img_link, location):
+def send_mail(result, data, link):
 
-    img_path = get_image_from_url(img_link)
+    img_path = get_image_from_url(data["img_url"])
 
     fp = open(img_path, 'rb')
     msg_image = MIMEImage(fp.read())
@@ -126,11 +126,11 @@ def send_mail(result, title, link, price, img_link, location):
     password = "bulik01cz"
     keywords = ", ".join(result)
     msg = MIMEMultipart()
-    msg["Subject"] = keywords + " " + price
+    msg["Subject"] = keywords + " " + data["price"]
     msg["From"] = from_addr
     msg["To"] = to_addr
 
-    body = "cena: "+ price + "\n" + "Místo: " + location + "\n" + "klíčová slova: " + keywords + "\n" + title + "\n" + link
+    body = "cena: "+ data["price"] + "\n" + "Místo: " + data["location"] + "\n" + "klíčová slova: " + keywords + "\n" + data["title"] + "\n" + link
     msg.attach(MIMEText(body, 'plain'))
     msg.attach(msg_image)
 

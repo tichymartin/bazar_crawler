@@ -262,7 +262,7 @@ def get_image_from_url(url):
     urllib.request.urlretrieve(url, img_path)
 
     # resize image
-    base_h = 100
+    base_h = 250
     img = Image.open(img_path)
 
     h_percent = (base_h / float(img.size[1]))

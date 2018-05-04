@@ -1,6 +1,7 @@
 from general import *
-from get_data_from_links import get_data_bazos, get_data_sbazar, get_image_from_url
+from get_data_from_links import get_data_bazos, get_image_from_url, get_data_sbazar
 import requests
+from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -11,19 +12,30 @@ from email.mime.image import MIMEImage
 logger = setup_logger("email")
 
 
-def get_links_sbazar(project):
-    link_list = []
+# def get_links_sbazar(project):
+#     link_list = []
+#
+#     source_code = requests.get(r"http://www.sbazar.cz/" + project).text
+#     soup = BeautifulSoup(source_code, "html.parser")
+#     links = soup.find("div", id="mrEggsResults").find_all("a", class_="mrEggPart")
+#
+#     for line in links:
+#         link = line.get("href")
+#         link_list.append("http://www.sbazar.cz" + link)
+#
+#     return link_list
 
-    source_code = requests.get(r"http://www.sbazar.cz/" + project).text
-    soup = BeautifulSoup(source_code, "html.parser")
-    links = soup.find("div", id="mrEggsResults").find_all("a", class_="mrEggPart")
+def get_links_sbazar(url):
+    session = HTMLSession()
+    r = session.get(r"http://www.sbazar.cz/" +url)
 
-    for line in links:
-        link = line.get("href")
-        link_list.append("http://www.sbazar.cz" + link)
+    url_list = []
+    url = r.html.find("a.c-item__link")
+    for x in url:
+        x_list = list(x.links)
+        url_list.append(x_list[0])
 
-    return link_list
-
+    return(url_list)
 
 # def get_links_bazos(project):
 #     link_list = []
@@ -41,13 +53,13 @@ def get_links_sbazar(project):
 #     return link_list
 
 
-def get_links_bazos(project):
+def get_links_bazos(url):
     link_list = []
     counter = 0
     while True:
 
-        link_address = project.split("/", 1).pop(0)
-        link = "https://" + project + "/" + str(counter) + "/"
+        link_address = url.split("/", 1).pop(0)
+        link = "https://" + url + "/" + str(counter) + "/"
         source_code = requests.get(link).text
         soup = BeautifulSoup(source_code, "html.parser")
 
@@ -66,22 +78,22 @@ def get_links_bazos(project):
     return link_list
 
 
-def search_links(project):
+def search_links(url):
 
     stopword_set = set(select_stopwords())
     keyword_set = set(select_wordlist())
 
-    if project[0].isdigit():
-        queue_list = get_links_sbazar(project)
+    if url[0].isdigit():
+        queue_list = get_links_sbazar(url)
     else:
-        queue_list = get_links_bazos(project)
+        queue_list = get_links_bazos(url)
 
     for link in queue_list:
-        # print("kontroluju", link)
+        print("kontroluju", link)
 
         if select_link_from_db(link):
-            # print("prochazim", link)
-            if link.startswith("http://www.sbazar.cz"):
+            print("prochazim", link)
+            if link.startswith("https://www.sbazar.cz"):
                 data = get_data_sbazar(link)
             else:
                 data = get_data_bazos(link)
@@ -100,7 +112,7 @@ def compare_words(data, link, stopword_set, keyword_set):
 
     elif keyword_set.intersection(data["words_set"]):
         result = set.intersection(keyword_set, data["words_set"])
-        send_mail(result, data, link)
+        # send_mail(result, data, link)
         print("test email odesilan")
         # print("data - result", result)
         # print("data - title ", data["title"])
@@ -154,15 +166,8 @@ def start(project):
 
 
 if __name__ == "__main__":
-    # page1 = [r"219-starozitny-nabytek", r"nabytek.bazos.cz/kresla/"]
-    # page = [r"nabytek.bazos.cz/kresla/"]
-    # for i in page:
-    #     print("testuju", i)
-    #     start(i)
-    #
-    # # test_link = "https://stroje.bazos.cz/inzerat/84820308/Koupim-kompresor-PKD-6-nebo-12.php"
-    # # get_words_bazos(test_link)
-
-    test = get_links_sbazar("300-kresla")
-    for i in test:
-        get_data_sbazar(i)
+    project_list_bazos = ["nabytek.bazos.cz/kresla", "nabytek.bazos.cz/zidle", "ostatni.bazos.cz"]
+    # page = [r"300-kresla"]
+    for i in project_list_bazos:
+        print("testuju", i)
+        start(i)

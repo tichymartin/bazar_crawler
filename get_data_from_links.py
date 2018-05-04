@@ -1,6 +1,7 @@
 import re
 import requests
 from bs4 import BeautifulSoup
+from requests_html import HTMLSession
 import urllib.request
 from PIL import Image
 
@@ -141,57 +142,89 @@ from PIL import Image
 #         return f"crawler class for url: {self.url}"
 
 
+# def get_data_sbazar_old(link):
+#     data = {}
+#     source_code = requests.get(link).text
+#     soup = BeautifulSoup(source_code, "html.parser")
+#
+#     print(soup)
+#     get img url
+#     img = soup.findAll("img")[2]["src"]
+#
+#     if img.startswith(r"//img.sbazar.cz"):
+#         img_url = "https:" + img
+#     else:
+#         img_url = "https://www.sbazar.cz/img/logo-sbazar.png"
+#     data["img_url"] = img_url
+#
+#     get title
+#     title = str(soup.find("class", itemprop="p-uw-item__header").string)
+#     data["title"] = title
+#
+#     get price
+#     try:
+#         price = str(soup.find("span", itemprop="price").contents[0])
+#     except IndexError:
+#         price = "cena neuvedena"
+#         pass
+#     data["price"] = price
+#
+#     # get user
+#     try:
+#         user = soup.find("dd", itemprop="familyName").contents[0].string
+#         user = user.lower()
+#
+#     except IndexError:
+#         user = "anonymní uživatel"
+#         # print("nema uzivatele")
+#         pass
+#     data["user"] = user
+#
+#     # get location
+#     location = soup.find("span",{"itemprop":"addressRegion"}).text
+#     data["location"] = str(location)
+#     # get words
+#     try:
+#         body = soup.find("span", itemprop="description").contents[0]
+#
+#     except IndexError:
+#         body = "inzerát bez textu"
+#         # print("nemá text")
+#         pass
+#
+#     title_body = title + " " + body
+#     # print(title_body)
+#     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
+#     words_set = set(title_body.lower().split())
+#     data["words_set"] = words_set
+#
+#     return data
+
 def get_data_sbazar(link):
     data = {}
-    source_code = requests.get(link).text
-    soup = BeautifulSoup(source_code, "html.parser")
+    session = HTMLSession()
+    r = session.get(link)
 
-    # get img url
-    img = soup.findAll("img")[2]["src"]
+    img = r.html.find("img.gallery-element-image", first=True).attrs
+    data["img_url"] = "https:" + img["src"]
 
-    if img.startswith(r"//img.sbazar.cz"):
-        img_url = "https:" + img
-    else:
-        img_url = "https://www.sbazar.cz/img/logo-sbazar.png"
-    data["img_url"] = img_url
+    data["title"] = r.html.find("h1.p-uw-item__header", first=True).text
+    # print(data["title"])
 
-    # get title
-    title = str(soup.title.string)
-    data["title"] = title
+    data["price"] = r.html.find("b.c-price__price", first=True).text
+    # print(data["price"])
 
-    # get price
+    data["user"] = r.html.find("a.c-seller-info__name", first=True).text
+    # print(data["user"])
+
+    data["location"] = r.html.find("a.atm-link", first=True).text
+    # print(data["location"])
     try:
-        price = str(soup.find("span", itemprop="price").contents[0])
-    except IndexError:
-        price = "cena neuvedena"
-        pass
-    data["price"] = price
+        body = r.html.find("p.p-uw-item__description", first=True).text
+    except AttributeError:
+        body = ""
 
-    # get user
-    try:
-        user = soup.find("dd", itemprop="familyName").contents[0].string
-        user = user.lower()
-
-    except IndexError:
-        user = "anonymní uživatel"
-        # print("nema uzivatele")
-        pass
-    data["user"] = user
-
-    # get location
-    location = soup.find("span",{"itemprop":"addressRegion"}).text
-    data["location"] = str(location)
-    # get words
-    try:
-        body = soup.find("span", itemprop="description").contents[0]
-
-    except IndexError:
-        body = "inzerát bez textu"
-        # print("nemá text")
-        pass
-
-    title_body = title + " " + body
-    # print(title_body)
+    title_body = data["title"] + " " + body
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     words_set = set(title_body.lower().split())
     data["words_set"] = words_set
@@ -275,8 +308,9 @@ def get_image_from_url(url):
 
 
 if __name__ == "__main__":
-    img_url = 'https://www.bazos.cz/img/1/679/86706679.jpg'
-    print(get_image_from_url(img_url))
+    link = r'https://www.sbazar.cz/eliska.si/detail/26329154-stara-zehlicka'
+    print(get_data_sbazar(link))
+
 
     # link = "https://nabytek.bazos.cz/inzerat/86706679/kuchynske-zidle.php"
     # print(get_data_bazos(link))

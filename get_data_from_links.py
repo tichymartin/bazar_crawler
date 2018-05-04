@@ -205,8 +205,11 @@ def get_data_sbazar(link):
     session = HTMLSession()
     r = session.get(link)
 
-    img = r.html.find("img.gallery-element-image", first=True).attrs
-    data["img_url"] = "https:" + img["src"]
+    try:
+        img = r.html.find("img.gallery-element-image", first=True).attrs
+        data["img_url"] = "https:" + img["src"]
+    except AttributeError:
+        data["img_url"] = "https://rumratings-production.s3.amazonaws.com/uploads/brand/image/654/Plantation_XO_20th_Anniversary_rum.png"
 
     data["title"] = r.html.find("h1.p-uw-item__header", first=True).text
     # print(data["title"])

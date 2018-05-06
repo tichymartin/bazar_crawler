@@ -1,4 +1,4 @@
-from body import start
+from main import start
 from general import setup_logger
 import time
 

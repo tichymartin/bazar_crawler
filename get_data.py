@@ -1,7 +1,5 @@
-import re
-# import requests
-# from bs4 import BeautifulSoup
 from requests_html import HTMLSession
+import re
 import urllib.request
 from PIL import Image
 
@@ -199,6 +197,7 @@ from PIL import Image
 #     data["words_set"] = words_set
 #
 #     return data
+
 
 def get_data_sbazar(link):
     data = {}

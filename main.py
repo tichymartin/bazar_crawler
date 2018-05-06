@@ -1,8 +1,6 @@
 from general import *
-from get_data_from_links import get_data_bazos, get_image_from_url, get_data_sbazar
-# import requests
-# from bs4 import BeautifulSoup
-from requests_html import HTMLSession
+from get_data import get_data_bazos, get_image_from_url, get_data_sbazar
+from get_links import get_links_bazos, get_links_sbazar
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -10,45 +8,6 @@ from email.mime.image import MIMEImage
 
 
 logger = setup_logger("email")
-
-
-def get_links_sbazar(url):
-    session = HTMLSession()
-    r = session.get(f"http://www.sbazar.cz/" + url)
-
-    url_list = []
-    tags = r.html.find("a.c-item__link")
-
-    for tag in tags:
-        url_list.append(list(tag.links)[0])
-
-    return(url_list)
-
-
-def get_links_bazos(raw_url):
-
-    link_list = []
-    counter = 0
-
-    url_base = raw_url.split("/", 1).pop(0)
-
-    while True:
-        url = raw_url + "/" + str(counter) + "/"
-        session = HTMLSession()
-        r = session.get("https://" + url)
-
-        a_tags = r.html.find("span.nadpis a")
-
-        for tag in a_tags:
-            link = list(tag.links)[0]
-            link_list.append("https://" + url_base + link)
-
-        top_tag = r.html.find(".ztop")
-        if len(top_tag) == 0:
-            break
-        counter += 20
-
-    return link_list
 
 
 # def get_links_bazos(url):

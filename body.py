@@ -1,8 +1,8 @@
 from general import *
 from get_data_from_links import get_data_bazos, get_image_from_url, get_data_sbazar
-import requests
+# import requests
+# from bs4 import BeautifulSoup
 from requests_html import HTMLSession
-from bs4 import BeautifulSoup
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -12,70 +12,67 @@ from email.mime.image import MIMEImage
 logger = setup_logger("email")
 
 
-# def get_links_sbazar(project):
-#     link_list = []
-#
-#     source_code = requests.get(r"http://www.sbazar.cz/" + project).text
-#     soup = BeautifulSoup(source_code, "html.parser")
-#     links = soup.find("div", id="mrEggsResults").find_all("a", class_="mrEggPart")
-#
-#     for line in links:
-#         link = line.get("href")
-#         link_list.append("http://www.sbazar.cz" + link)
-#
-#     return link_list
-
 def get_links_sbazar(url):
     session = HTMLSession()
-    r = session.get(r"http://www.sbazar.cz/" +url)
+    r = session.get(f"http://www.sbazar.cz/" + url)
 
     url_list = []
-    url = r.html.find("a.c-item__link")
-    for x in url:
-        x_list = list(x.links)
-        url_list.append(x_list[0])
+    tags = r.html.find("a.c-item__link")
+
+    for tag in tags:
+        url_list.append(list(tag.links)[0])
 
     return(url_list)
 
-# def get_links_bazos(project):
-#     link_list = []
-#     link_address = project.split("/", 1).pop(0)
-#
-#     source_code = requests.get("https://" + project).text
-#     soup = BeautifulSoup(source_code, "html.parser")
-#
-#     for line in soup.find_all("a"):
-#         link = line.get("href").startswith("/inzerat")
-#         if link is True:
-#             link_list.append("https://" + link_address + line.get("href"))
-#
-#     link_list = set(link_list)
-#     return link_list
 
+def get_links_bazos(raw_url):
 
-def get_links_bazos(url):
     link_list = []
     counter = 0
+
+    url_base = raw_url.split("/", 1).pop(0)
+
     while True:
+        url = raw_url + "/" + str(counter) + "/"
+        session = HTMLSession()
+        r = session.get("https://" + url)
 
-        link_address = url.split("/", 1).pop(0)
-        link = "https://" + url + "/" + str(counter) + "/"
-        source_code = requests.get(link).text
-        soup = BeautifulSoup(source_code, "html.parser")
+        a_tags = r.html.find("span.nadpis a")
 
-        for line in soup.find_all("a"):
-            link = line.get("href").startswith("/inzerat")
-            if link is True:
-                link_list.append("https://" + link_address + line.get("href"))
+        for tag in a_tags:
+            link = list(tag.links)[0]
+            link_list.append("https://" + url_base + link)
 
-        top = soup.findAll("span", {"class": "ztop"})
-        if len(top) == 0:
+        top_tag = r.html.find(".ztop")
+        if len(top_tag) == 0:
             break
         counter += 20
 
-
-    link_list = set(link_list)
     return link_list
+
+
+# def get_links_bazos(url):
+#     link_list = []
+#     counter = 0
+#     while True:
+#
+#         link_address = url.split("/", 1).pop(0)
+#         link = "https://" + url + "/" + str(counter) + "/"
+#         source_code = requests.get(link).text
+#         soup = BeautifulSoup(source_code, "html.parser")
+#
+#         for line in soup.find_all("a"):
+#             link = line.get("href").startswith("/inzerat")
+#             if link is True:
+#                 link_list.append("https://" + link_address + line.get("href"))
+#
+#         top = soup.findAll("span", {"class": "ztop"})
+#         if len(top) == 0:
+#             break
+#         counter += 20
+#
+#     link_list = set(link_list)
+#     return link_list
 
 
 def search_links(url):
@@ -112,7 +109,7 @@ def compare_words(data, link, stopword_set, keyword_set):
 
     elif keyword_set.intersection(data["words_set"]):
         result = set.intersection(keyword_set, data["words_set"])
-        send_mail(result, data, link)
+        # send_mail(result, data, link)
         print("test email odesilan")
         # print("data - result", result)
         # print("data - title ", data["title"])
@@ -167,7 +164,8 @@ def start(project):
 
 if __name__ == "__main__":
     project_list_bazos = ["nabytek.bazos.cz/kresla", "nabytek.bazos.cz/zidle", "ostatni.bazos.cz"]
-    # page = [r"300-kresla"]
-    for i in project_list_bazos:
+    page = [r"300-kresla"]
+    for i in page:
         print("testuju", i)
-        start(i)
+        print(get_links_sbazar(i))
+        # start(i)

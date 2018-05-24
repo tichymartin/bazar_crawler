@@ -4,7 +4,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from general import setup_logger
-
+import os
 
 logger = setup_logger("email")
 

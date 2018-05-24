@@ -5,13 +5,13 @@ def get_links_sbazar(url):
     session = HTMLSession()
     r = session.get(f"http://www.sbazar.cz/" + url)
 
-    url_list = []
+    link_list = []
     tags = r.html.find("a.c-item__link")
 
     for tag in tags:
-        url_list.append(list(tag.links)[0])
+        link_list.append(list(tag.links)[0])
 
-    return url_list
+    return link_list
 
 
 def get_links_bazos(raw_url):

@@ -1,18 +1,20 @@
 import os
 from database import *
 import logging
+from sql_tables import Links, Keywords, Stopwords, Stopusers, write_tables_to_db
 
 
 def create_project_dir():
     path = r"crawler_files/"
-    database = path + r"sqlite_database.db"
+    database = os.path.join(path, r"sqlite_database.db")
 
     if not os.path.exists(path):
         os.makedirs(path)
         print("Vytvořena složka " + path)
 
     if not os.path.isfile(database):
-        create_database()
+        # create_database()
+        write_tables_to_db()
 
 
 def insert_keywords_to_db(file):
@@ -102,3 +104,9 @@ def setup_logger(name=__name__):
     logger.addHandler(handler)
 
     return logger
+
+if __name__ == "__main__":
+    file = r"text_files/stopusers.txt"
+    file2 = r"text_files/stopusers2.txt"
+    new = set(file_to_list(file))
+    set_to_file_del(file, new)

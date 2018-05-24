@@ -2,7 +2,6 @@ import sqlite3
 
 
 def create_database():
-
     list_table = """ CREATE TABLE IF NOT EXISTS Links (
                                         id integer PRIMARY KEY,
                                         link text
@@ -35,7 +34,6 @@ def create_connection():
 
 
 def insert_links_to_db(link_list):
-
     conn = create_connection()
     cursor = conn.cursor()
     for item in link_list:
@@ -45,7 +43,6 @@ def insert_links_to_db(link_list):
 
 
 def insert_link_to_db(data):
-
     conn = create_connection()
     cursor = conn.cursor()
     cursor.execute('INSERT INTO Links(link) values (?)', (data,))
@@ -54,7 +51,6 @@ def insert_link_to_db(data):
 
 
 def select_link_from_db(check_link):
-
     conn = create_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT count(*) FROM Links WHERE link = ?', (check_link,))
@@ -69,7 +65,6 @@ def select_link_from_db(check_link):
 
 
 def select_stopuser(user):
-
     conn = create_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT count(*) FROM Stopusers WHERE stopusers = ?', (user,))
@@ -83,7 +78,6 @@ def select_stopuser(user):
 
 
 def select_stopwords():
-
     conn = create_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM Stopwords')
@@ -97,7 +91,6 @@ def select_stopwords():
 
 
 def select_wordlist():
-
     conn = create_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM Keywords')

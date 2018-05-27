@@ -26,6 +26,7 @@ for i in url_list_bazos_ostatni:
 for page_tuple in project_list:
     start(page_tuple)
 
+
 end = time.time()
 end_time = str(end - timer)
 print(end_time)

@@ -13,7 +13,7 @@ def get_data_sbazar(link):
         img = r.html.find("img.gallery-element-image", first=True).attrs
         data["img_url"] = "https:" + img["src"]
     except AttributeError:
-        data["img_url"] = "https://rumratings-production.s3.amazonaws.com/uploads/brand/image/654/Plantation_XO_20th_Anniversary_rum.png"
+        data["img_url"] = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
 
     data["title"] = r.html.find("h1.p-uw-item__header", first=True).text
     # print(data["title"])
@@ -48,7 +48,7 @@ def get_data_bazos(link):
         img = r.html.find("#bobrazek", first=True).attrs["src"]
         img_url = img.split("?t=")[0]
     except AttributeError:
-        img_url = "https://rumratings-production.s3.amazonaws.com/uploads/brand/image/1052/Don_Papa_Rum.png"
+        img_url = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
 
     data["img_url"] = img_url
 
@@ -99,6 +99,6 @@ if __name__ == "__main__":
     # get_image_from_url(data["img_url"])
 
 
-    link = "https://www.sbazar.cz/eliska.si/detail/26329154-stara-zehlicka"
+    link = "https://ostatni.bazos.cz/inzerat/88933530/Pivovar-Vyskov-Vyskovsky-pivovar-Vyskovske-pivo.php"
     # print(get_data_bazos2(link))
-    print(get_data_sbazar(link))
+    print(get_data_bazos(link))

@@ -99,6 +99,7 @@ if __name__ == "__main__":
     # get_image_from_url(data["img_url"])
 
 
+
     link = "https://ostatni.bazos.cz/inzerat/88933530/Pivovar-Vyskov-Vyskovsky-pivovar-Vyskovske-pivo.php"
     # print(get_data_bazos2(link))
     print(get_data_bazos(link))

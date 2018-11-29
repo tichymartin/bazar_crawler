@@ -45,7 +45,7 @@ def compare_words(data, link, stopword_set, keyword_set):
         # print("test email odesilan")
         # print("data py- result", result)
         # print("data - title ", data["title"])
-        # print("data - link, price, img", link, data["price"], data["img_url"], data["location"])
+        # print(f"data - link: {link}, price: {data['price']}, img: {data['img_url']}, location: {data['location']}")
     else:
         pass
 

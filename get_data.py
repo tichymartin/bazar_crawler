@@ -117,9 +117,10 @@ if __name__ == "__main__":
     # link = r'https://www.sbazar.cz/eliska.si/detail/26329154-stara-zehlicka'
     # data = get_data_sbazar(link)
     # print(data["img_url"])
-    # get_image_from_url(data["img_url"])
+
     link_bazos = "https://dum.bazos.cz/inzerat/97654527/Koupim-posuvnou-branu.php"
     link = "https://www.sbazar.cz/ondra.kocan/detail/55719902-set-jidelni-zidle-skjern-550-za-kus"
     # print(get_data_sbazar("https://www.sbazar.cz/ondra.kocan/detail/55719902-set-jidelni-zidle-skjern-550-za-kus"))
     # print(tst_get_data_bazos(link_bazos))
-    print(get_data_bazos(link_bazos))
+    # print(get_data_bazos(link_bazos))
+    get_image_from_url("https://www.bazos.cz/img/1/267/97666267.jpg?t=1543392999")

@@ -10,7 +10,7 @@ def get_data_sbazar(link):
     r = session.get(link)
 
     try:
-        img = r.html.find("img.gallery-element-image", first=True).attrs
+        img = r.html.find("img.c-gallery__img", first=True).attrs
         data["img_url"] = "https:" + img["src"]
     except AttributeError:
         data["img_url"] = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
@@ -45,8 +45,8 @@ def get_data_bazos(link):
     r = session.get(link)
 
     try:
-        img = r.html.find("#bobrazek", first=True).attrs["src"]
-        img_url = img.split("?t=")[0]
+        img = r.html.find("img.carousel-cell-image", first=True).attrs
+        img_url = img["data-flickity-lazyload"]
     except AttributeError:
         img_url = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
 
@@ -71,7 +71,6 @@ def get_data_bazos(link):
 
 
 def get_image_from_url(url):
-
     # img_name = url.split("/")[-1]
     # img_path = r"crawler_files/" + img_name
     # urllib.request.urlretrieve(url, img_path)
@@ -92,14 +91,35 @@ def get_image_from_url(url):
     return img_path
 
 
+def tst_get_data_sbazar(link):
+
+    session = HTMLSession()
+    r = session.get(link)
+
+    img = r.html.find("img.ob-c-gallery__img", first=True).attrs
+    img_url = "https:" + img["src"]
+
+    return img_url
+
+
+def tst_get_data_bazos(link):
+
+    session = HTMLSession()
+    r = session.get(link)
+
+    img = r.html.find("img.carousel-cell-image", first=True).attrs
+    img_url = img["data-flickity-lazyload"]
+    return img_url
+
+    # return img_url
+
 if __name__ == "__main__":
     # link = r'https://www.sbazar.cz/eliska.si/detail/26329154-stara-zehlicka'
     # data = get_data_sbazar(link)
     # print(data["img_url"])
     # get_image_from_url(data["img_url"])
-
-
-
-    link = "https://ostatni.bazos.cz/inzerat/88933530/Pivovar-Vyskov-Vyskovsky-pivovar-Vyskovske-pivo.php"
-    # print(get_data_bazos2(link))
-    print(get_data_bazos(link))
+    link_bazos = "https://dum.bazos.cz/inzerat/97654527/Koupim-posuvnou-branu.php"
+    link = "https://www.sbazar.cz/ondra.kocan/detail/55719902-set-jidelni-zidle-skjern-550-za-kus"
+    # print(get_data_sbazar("https://www.sbazar.cz/ondra.kocan/detail/55719902-set-jidelni-zidle-skjern-550-za-kus"))
+    # print(tst_get_data_bazos(link_bazos))
+    print(get_data_bazos(link_bazos))

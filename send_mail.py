@@ -21,7 +21,7 @@ def send_mail(result, data, link):
     from_addr = "kouril53@gmail.com"
     to_addr = "kouril53@gmail.com"
     username = "kouril53@gmail.com"
-    password = "bulik01cz"
+    password = "kourilzdenek01cz"
     keywords = ", ".join(result)
     msg = MIMEMultipart()
     msg["Subject"] = keywords + " " + data["price"]

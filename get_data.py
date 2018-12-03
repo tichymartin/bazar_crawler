@@ -10,8 +10,9 @@ def get_data_sbazar(link):
     r = session.get(link)
 
     try:
-        img = r.html.find("img.c-gallery__img", first=True).attrs
+        img = r.html.find("img.ob-c-gallery__img", first=True).attrs
         data["img_url"] = "https:" + img["src"]
+
     except AttributeError:
         data["img_url"] = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
 
@@ -92,7 +93,6 @@ def get_image_from_url(url):
 
 
 def tst_get_data_sbazar(link):
-
     session = HTMLSession()
     r = session.get(link)
 
@@ -103,7 +103,6 @@ def tst_get_data_sbazar(link):
 
 
 def tst_get_data_bazos(link):
-
     session = HTMLSession()
     r = session.get(link)
 
@@ -113,14 +112,17 @@ def tst_get_data_bazos(link):
 
     # return img_url
 
-if __name__ == "__main__":
-    # link = r'https://www.sbazar.cz/eliska.si/detail/26329154-stara-zehlicka'
-    # data = get_data_sbazar(link)
-    # print(data["img_url"])
 
-    link_bazos = "https://dum.bazos.cz/inzerat/97654527/Koupim-posuvnou-branu.php"
-    link = "https://www.sbazar.cz/ondra.kocan/detail/55719902-set-jidelni-zidle-skjern-550-za-kus"
-    # print(get_data_sbazar("https://www.sbazar.cz/ondra.kocan/detail/55719902-set-jidelni-zidle-skjern-550-za-kus"))
-    # print(tst_get_data_bazos(link_bazos))
+if __name__ == "__main__":
+
+    link_bazos_no_img = "https://dum.bazos.cz/inzerat/97654527/Koupim-posuvnou-branu.php"
+    link_bazos = "https://dum.bazos.cz/inzerat/97863030/Rekuperacni-ventilacni-jednotka-ENERVENT-Pingvin-ECO.php"
+    link_sbazar_no_img = "https://www.sbazar.cz/mart.cervenkova/detail/58384802-pronajem-garaze-zlin-podhori"
+    link_sbazar = "https://www.sbazar.cz/ondra.kocan/detail/55719902-set-jidelni-zidle-skjern-550-za-kus"
+
+    # print(get_data_sbazar(link_sbazar))
+    # print(get_data_sbazar(link_sbazar_no_img))
     # print(get_data_bazos(link_bazos))
-    get_image_from_url("https://www.bazos.cz/img/1/267/97666267.jpg?t=1543392999")
+    # print(get_data_bazos(link_bazos_no_img))
+    # print(tst_get_data_sbazar(link))
+    # print(tst_get_data_bazos(link_bazos))

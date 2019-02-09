@@ -6,8 +6,7 @@ links_dict = {
 }
 
 stopwords_set = {'kancelář', 'kanceláře', 'kancelářské', 'kancelářská', 'kancelářský', 'ikea', 'ikei', 'ratanové',
-             'ratanová',
-             'ratanový', 'zahrady', 'zahradní'}
+             'ratanová', 'ratanový', 'zahrady', 'zahradní', }
 
 stopusers_set = {'j.', 'nemecekvlad', 'zdenek', 'lukas', 'huvudsta', 'halabalashop', 'prodám', 'alexander', 'niederlepa ',
              'www.euro-meble.eu', 'jan', 'bytoms', 'xxyyzz20', 'kny', 'vymlatil.radek', 'retronabytek',
@@ -26,4 +25,4 @@ keywords_set = {'thonet', 'thonety', 'tonety', 'tonet', 'ton', 'hospoda', 'hospo
             'ušák', 'ušáky', 'kyvná', 'kyvné', 'polohovatelná', 'polohovatelné', 'polohovatelný', 'polohovací',
             'křesílko', 'křesílka', 'houpací', 'kinolavice', 'chippendale', 'stojací', 'chromový', 'chromová',
             'chromové', 'chromovaný', 'chromované', 'chromovaná', 'funkcionalistická', 'funkcionalistický',
-            'funkcionalistické', 'industriální'}
+            'funkcionalistické', 'industriální', }

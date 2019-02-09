@@ -7,10 +7,12 @@ from general import setup_logger
 import os
 
 
-def send_mails(all_data):
+def send_mails(all_data, test=False):
     for data in all_data:
-        # print(f"sending a mail with{data}")
-        send_mail(data)
+        if test:
+            print(f"sending a mail with{data}")
+        else:
+            send_mail(data)
 
 
 def send_mail(data):

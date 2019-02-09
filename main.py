@@ -66,8 +66,10 @@ def search_links_for_metadata(links_to_check):
 def compare_keywords(metadata):
     data_to_send = []
     for single_data in metadata:
+        user = set()
+        user.add(single_data['user'])
 
-        if stopusers_set.intersection(set(single_data["user"])):
+        if stopusers_set.intersection(user):
             continue
 
         elif stopwords_set.intersection(single_data["words_set"]):
@@ -88,7 +90,7 @@ if __name__ == "__main__":
         {'img_url': 'https://apollo-ireland.akamaized.net:443/v1/files/ua33k9yh30xs2-LETCZ/image;s=280x0;q=20',
          'user': 'Juan Don Alberto', 'location': 'Hrabůvka, Ostrava, Moravskoslezský kraj',
          'title': 'Počítačový stolek + křeslo', 'price': '1\xa0000Kč',
-         'words_set': {'prodávám', 'křeslo', 'stolek', 'výškově', 'moc', 's', 'stavitelný', 'stav', 'pultem',
+         'words_set': {'prodávám', 'ušák', 'křeslo', 'stolek', 'výškově', 'moc', 's', 'stavitelný', 'stav', 'pultem',
                        'počítačovy', 'křeslem', 'dobrý', 'stůl', 'nevyužit', 'koženka', 'výsuvným', 'počítačový'},
          'link': 'https://www.letgo.cz/item/pocitacovy-stolek-kreslo-iid-14237325'},
         {'img_url': 'https://apollo-ireland.akamaized.net:443/v1/files/d12xeei7kf6c3-LETCZ/image;s=280x0;q=20',
@@ -188,6 +190,6 @@ if __name__ == "__main__":
          'link': 'https://www.letgo.cz/item/prodam-pc-stul-kreslo-iid-14235784'}
     ]
 
-    for d in data:
-        print(query_stopuser(d["user"]))
+    for dat in compare_keywords(data):
+        print(dat)
     # print(get_links_from_website(links_dict))

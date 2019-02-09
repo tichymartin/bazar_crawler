@@ -89,7 +89,10 @@ def get_data_letgo(link):
     except AttributeError:
         data["user"] = "Nezadané jméno"
 
-    data["location"] = r.html.find("._2FRXm", first=True).text
+    try:
+        data["location"] = r.html.find("._2FRXm", first=True).text
+    except AttributeError:
+        data["location"] = "Nezadaná adresa"
     data["title"] = r.html.find("._3rJ6e", first=True).text
     data["price"] = r.html.find("._2xKfz", first=True).text
     try:

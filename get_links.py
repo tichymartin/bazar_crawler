@@ -42,14 +42,13 @@ def get_links_bazos(raw_url):
 def get_links_letgo(keyword):
     link_list = []
     url_base = f"https://www.letgo.cz/items/q-{keyword}"
-    print(url_base)
     session = HTMLSession()
     r = session.get(url_base)
     all_links = r.html.links
     for link in all_links:
         if link.startswith("/item/"):
             link_list.append(f"https://www.letgo.cz{link}")
-    print(link_list)
+    return link_list
 
 
 if __name__ == '__main__':

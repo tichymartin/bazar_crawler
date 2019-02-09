@@ -84,7 +84,11 @@ def get_data_letgo(link):
     except AttributeError:
         data["img_url"] = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
 
-    data["user"] = r.html.find(".hBaak", first=True).text
+    try:
+        data["user"] = r.html.find(".hBaak", first=True).text
+    except AttributeError:
+        data["user"] = "Nezadané jméno"
+
     data["location"] = r.html.find("._2FRXm", first=True).text
     data["title"] = r.html.find("._3rJ6e", first=True).text
     data["price"] = r.html.find("._2xKfz", first=True).text
@@ -97,7 +101,7 @@ def get_data_letgo(link):
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     data["words_set"] = set(title_body.lower().split())
     data["link"] = link
-    print(data)
+    return data
 
 
 def get_image_from_url(url):

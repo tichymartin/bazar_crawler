@@ -36,6 +36,7 @@ def get_data_sbazar(link):
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     words_set = set(title_body.lower().split())
     data["words_set"] = words_set
+    data["link"] = link
 
     return data
 
@@ -67,15 +68,39 @@ def get_data_bazos(link):
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     words_set = set(title_body.lower().split())
     data["words_set"] = words_set
+    data["link"] = link
 
     return data
 
 
-def get_image_from_url(url):
-    # img_name = url.split("/")[-1]
-    # img_path = r"crawler_files/" + img_name
-    # urllib.request.urlretrieve(url, img_path)
+def get_data_letgo(link):
+    data = {}
+    session = HTMLSession()
+    r = session.get(link)
 
+    try:
+        img = r.html.find("._3v5bo img", first=True).attrs
+        data["img_url"] = img["srcset"].split()[0]
+    except AttributeError:
+        data["img_url"] = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
+
+    data["user"] = r.html.find(".hBaak", first=True).text
+    data["location"] = r.html.find("._2FRXm", first=True).text
+    data["title"] = r.html.find("._3rJ6e", first=True).text
+    data["price"] = r.html.find("._2xKfz", first=True).text
+    try:
+        body = r.html.find(".rui-2vHTl div p", first=True).text
+    except AttributeError:
+        body = ""
+
+    title_body = data["title"] + " " + body
+    title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
+    data["words_set"] = set(title_body.lower().split())
+    data["link"] = link
+    print(data)
+
+
+def get_image_from_url(url):
     img_path = r"crawler_files/temp.jpg"
     urllib.request.urlretrieve(url, img_path)
 
@@ -110,19 +135,28 @@ def tst_get_data_bazos(link):
     img_url = img["data-flickity-lazyload"]
     return img_url
 
-    # return img_url
-
 
 if __name__ == "__main__":
-
-    link_bazos_no_img = "https://dum.bazos.cz/inzerat/97654527/Koupim-posuvnou-branu.php"
-    link_bazos = "https://dum.bazos.cz/inzerat/97863030/Rekuperacni-ventilacni-jednotka-ENERVENT-Pingvin-ECO.php"
-    link_sbazar_no_img = "https://www.sbazar.cz/mart.cervenkova/detail/58384802-pronajem-garaze-zlin-podhori"
-    link_sbazar = "https://www.sbazar.cz/ondra.kocan/detail/55719902-set-jidelni-zidle-skjern-550-za-kus"
-
-    # print(get_data_sbazar(link_sbazar))
-    # print(get_data_sbazar(link_sbazar_no_img))
-    # print(get_data_bazos(link_bazos))
-    # print(get_data_bazos(link_bazos_no_img))
-    # print(tst_get_data_sbazar(link))
-    # print(tst_get_data_bazos(link_bazos))
+    letgo_list = ['https://www.letgo.cz/item/ikea-glenn-barova-zidle-iid-14236303',
+                  'https://www.letgo.cz/item/vse-za-900kc-ikea-knihovna-regalovy-policovy-dil-psaci-stul-a-zidle-iid-14232380',
+                  'https://www.letgo.cz/item/kuchynsky-stul-dve-zidle-iid-14233539',
+                  'https://www.letgo.cz/item/jidelni-stul-4-zidle-iid-14233479',
+                  'https://www.letgo.cz/item/stolickazidlicka-iid-14234917',
+                  'https://www.letgo.cz/item/jidelni-zidle-iid-14234821',
+                  'https://www.letgo.cz/item/kuchynske-zidle-ikea-iid-14233239',
+                  'https://www.letgo.cz/item/stul-6-zidli-iid-14232786',
+                  'https://www.letgo.cz/item/psaci-stul-a-zidle-iid-14236192',
+                  'https://www.letgo.cz/item/barova-zidle-glenn-iid-14236419',
+                  'https://www.letgo.cz/item/pohodlna-kozena-jidelni-zidle-ikea-iid-14235793',
+                  'https://www.letgo.cz/item/kancelarska-zidle-iid-14232788',
+                  'https://www.letgo.cz/item/drevene-calounene-zidle-2ks-iid-14232868',
+                  'https://www.letgo.cz/item/toaletni-zidle-top-stav-iid-14233103',
+                  'https://www.letgo.cz/item/zidle-ikea-franklin-63-cm-bila-iid-14234052',
+                  'https://www.letgo.cz/item/jidelni-zidle-iid-14233463',
+                  'https://www.letgo.cz/item/decka-plastova-zidle-iid-14233150',
+                  'https://www.letgo.cz/item/stul-a-zidle-za-odvoz-iid-14234149',
+                  'https://www.letgo.cz/item/pc-zidle-iid-14235785']
+    letgo_link_no_title = 'https://www.letgo.cz/item/zidle-iid-14234456'
+    letgo_link = "https://www.letgo.cz/item/stul-6-zidli-iid-14232786"
+    for l in letgo_list:
+        get_data_letgo(l)

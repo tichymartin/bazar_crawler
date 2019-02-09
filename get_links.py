@@ -15,7 +15,6 @@ def get_links_sbazar(url):
 
 
 def get_links_bazos(raw_url):
-
     link_list = []
     counter = 0
 
@@ -40,25 +39,20 @@ def get_links_bazos(raw_url):
     return link_list
 
 
-# def get_links_bazos(url):
-#     link_list = []
-#     counter = 0
-#     while True:
-#
-#         link_address = url.split("/", 1).pop(0)
-#         link = "https://" + url + "/" + str(counter) + "/"
-#         source_code = requests.get(link).text
-#         soup = BeautifulSoup(source_code, "html.parser")
-#
-#         for line in soup.find_all("a"):
-#             link = line.get("href").startswith("/inzerat")
-#             if link is True:
-#                 link_list.append("https://" + link_address + line.get("href"))
-#
-#         top = soup.findAll("span", {"class": "ztop"})
-#         if len(top) == 0:
-#             break
-#         counter += 20
-#
-#     link_list = set(link_list)
-#     return link_list
+def get_links_letgo(keyword):
+    link_list = []
+    url_base = f"https://www.letgo.cz/items/q-{keyword}"
+    print(url_base)
+    session = HTMLSession()
+    r = session.get(url_base)
+    all_links = r.html.links
+    for link in all_links:
+        if link.startswith("/item/"):
+            link_list.append(f"https://www.letgo.cz{link}")
+    print(link_list)
+
+
+if __name__ == '__main__':
+
+    get_links_letgo("židle")
+    # print(get_links_bazos("nabytek.bazos.cz/kresla"))

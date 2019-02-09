@@ -1,6 +1,7 @@
 import os
-from database import *
+import time
 import logging
+from database import *
 from sql_tables import Links, Keywords, Stopwords, Stopusers, write_tables_to_db
 
 
@@ -89,7 +90,6 @@ def set_to_file(file_name, data):
 
 
 def setup_logger(name=__name__):
-
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
 
@@ -104,6 +104,21 @@ def setup_logger(name=__name__):
     logger.addHandler(handler)
 
     return logger
+
+
+def start_logger(name):
+    logger = setup_logger(name)
+    timer = time.time()
+
+    return logger, timer
+
+
+def stop_logger(logger, timer):
+    end = time.time()
+    end_time = str(end - timer)
+    print(end_time)
+    logger.info("crawler ended in ; " + end_time)
+
 
 if __name__ == "__main__":
     file = r"text_files/stopusers.txt"

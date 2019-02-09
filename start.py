@@ -1,33 +1,21 @@
-from main import start
-from general import setup_logger
-from collections import namedtuple
+from main import get_links_from_website, check_links_in_database, insert_new_links_into_database, \
+    search_links_for_metadata, compare_keywords
+from send_mail import send_mails
+from general import start_logger, stop_logger
+from links import links_dict
+from sql_query import query_wordlist, query_stopwords
 
-import time
+if __name__ == '__main__':
+    logger, timer = start_logger("start")
 
-logger = setup_logger("start")
-timer = time.time()
+    stopwords_set = set(query_stopwords())
+    keywords_set = set(query_wordlist())
 
-project_list = []
+    new_links = get_links_from_website(links_dict)
+    links_to_check = check_links_in_database(new_links)
+    insert_new_links_into_database(links_to_check)
+    data_to_compare_with_sets = search_links_for_metadata(links_to_check)
+    data_to_send = compare_keywords(data_to_compare_with_sets, stopwords_set, keywords_set)
+    send_mails(data_to_send)
 
-searched_links = namedtuple("searched_links", "url, type")
-url_list_sbazar = [r"524-jidelni-stoly-zidle", r"300-kresla", r"219-starozitny-nabytek"]
-url_list_bazos_nabytek = ["nabytek.bazos.cz/kresla", "nabytek.bazos.cz/zidle"]
-url_list_bazos_ostatni = ["ostatni.bazos.cz"]
-
-for i in url_list_sbazar:
-    project_list.append(searched_links(url=i, type="sbazar"))
-
-for i in url_list_bazos_nabytek:
-    project_list.append(searched_links(url=i, type="bazos_nabytek"))
-
-for i in url_list_bazos_ostatni:
-    project_list.append(searched_links(url=i, type="bazos_ostatni"))
-
-for page_tuple in project_list:
-    start(page_tuple)
-
-
-end = time.time()
-end_time = str(end - timer)
-print(end_time)
-logger.info("crawler ended in ; " + end_time)
+    stop_logger(logger, timer)

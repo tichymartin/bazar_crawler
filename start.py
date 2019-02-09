@@ -3,19 +3,15 @@ from main import get_links_from_website, check_links_in_database, insert_new_lin
 from send_mail import send_mails
 from general import start_logger, stop_logger
 from links import links_dict
-from sql_query import query_wordlist, query_stopwords
 
 if __name__ == '__main__':
     logger, timer = start_logger("start")
-
-    stopwords_set = set(query_stopwords())
-    keywords_set = set(query_wordlist())
 
     new_links = get_links_from_website(links_dict)
     links_to_check = check_links_in_database(new_links)
     insert_new_links_into_database(links_to_check)
     data_to_compare_with_sets = search_links_for_metadata(links_to_check)
-    data_to_send = compare_keywords(data_to_compare_with_sets, stopwords_set, keywords_set)
+    data_to_send = compare_keywords(data_to_compare_with_sets)
     send_mails(data_to_send)
 
     stop_logger(logger, timer)

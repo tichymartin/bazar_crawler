@@ -15,33 +15,33 @@ session = Session()
 Base = declarative_base()
 
 
-class Links(Base):
+class Links_table(Base):
     __tablename__ = "links"
 
     link_id = Column(Integer, primary_key=True)
-    link_url = Column(String(255), index=True, unique=True)
-    link_type = Column(String(10))
+    link = Column(String(255), index=True, unique=True)
+    website = Column(String(10))
 
 
-class Keywords(Base):
-    __tablename__ = "keywords"
-
-    id = Column(Integer, primary_key=True)
-    keyword = Column(String(50), unique=True)
-
-
-class Stopwords(Base):
-    __tablename__ = "stopwords"
-
-    id = Column(Integer, primary_key=True)
-    stopword = Column(String(50), unique=True)
-
-
-class Stopusers(Base):
-    __tablename__ = "stopusers"
-
-    id = Column(Integer, primary_key=True)
-    stopuser = Column(String(50), unique=True)
+# class Keywords(Base):
+#     __tablename__ = "keywords"
+#
+#     id = Column(Integer, primary_key=True)
+#     keyword = Column(String(50), unique=True)
+#
+#
+# class Stopwords(Base):
+#     __tablename__ = "stopwords"
+#
+#     id = Column(Integer, primary_key=True)
+#     stopword = Column(String(50), unique=True)
+#
+#
+# class Stopusers(Base):
+#     __tablename__ = "stopusers"
+#
+#     id = Column(Integer, primary_key=True)
+#     stopuser = Column(String(50), unique=True)
 
 
 def write_tables_to_db():

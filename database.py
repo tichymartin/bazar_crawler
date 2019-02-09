@@ -2,9 +2,10 @@ import sqlite3
 
 
 def create_database():
-    list_table = """ CREATE TABLE IF NOT EXISTS Links (
+    links_table = """ CREATE TABLE IF NOT EXISTS Links_table (
                                         id integer PRIMARY KEY,
                                         link text
+                                        website text
                                     ); """
 
     wordlist_table = """ CREATE TABLE IF NOT EXISTS Keywords (
@@ -20,10 +21,10 @@ def create_database():
                                     ); """
     conn = create_connection()
     c = conn.cursor()
-    c.execute(list_table)
-    c.execute(wordlist_table)
-    c.execute(stop_user_list)
-    c.execute(stop_words_list)
+    # c.execute(links_table)
+    # c.execute(wordlist_table)
+    # c.execute(stop_user_list)
+    # c.execute(stop_words_list)
     print("DB created")
 
 

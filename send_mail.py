@@ -9,8 +9,8 @@ import os
 
 def send_mails(all_data):
     for data in all_data:
-        # print(f"sending a mail with{data}")
-        send_mail(data)
+        print(f"sending a mail with{data}")
+        # send_mail(data)
 
 
 def send_mail(data):

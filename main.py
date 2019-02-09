@@ -1,7 +1,8 @@
 from get_data import get_data_bazos, get_data_sbazar, get_data_letgo
 from get_links import get_links_bazos, get_links_sbazar, get_links_letgo
-from sql_query import query_link, query_stopuser
+from sql_query import query_link
 from sql_inserts import insert_link_list
+from links import stopusers_set, stopwords_set, keywords_set
 
 
 def get_links_from_website(links_dict):
@@ -62,11 +63,11 @@ def search_links_for_metadata(links_to_check):
     return data_to_compare_with_sets
 
 
-def compare_keywords(metadata, stopwords_set, keywords_set):
+def compare_keywords(metadata):
     data_to_send = []
     for single_data in metadata:
 
-        if query_stopuser(single_data["user"]):
+        if stopusers_set.intersection(set(single_data["user"])):
             continue
 
         elif stopwords_set.intersection(single_data["words_set"]):

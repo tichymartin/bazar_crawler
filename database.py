@@ -20,7 +20,7 @@ def create_database():
                                         stopwords text
                                     ); """
     conn = create_connection()
-    c = conn.cursor()
+    # c = conn.cursor()
     # c.execute(links_table)
     # c.execute(wordlist_table)
     # c.execute(stop_user_list)

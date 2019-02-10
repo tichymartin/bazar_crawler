@@ -2,7 +2,7 @@ import os
 import time
 import logging
 from database import create_database
-from sql_tables import write_tables_to_db
+from sql_alchemy_tables import write_tables_to_db
 
 
 def create_database_file():
@@ -58,7 +58,7 @@ def setup_logger(name=__name__):
     logger.setLevel(logging.INFO)
 
     # create a file handler
-    handler = logging.FileHandler('crawler.log')
+    handler = logging.FileHandler('logging_file.log')
 
     # create a logging format
     formatter = logging.Formatter('%(asctime)s ; %(name)s ; %(levelname)s ; %(message)s')
@@ -70,8 +70,8 @@ def setup_logger(name=__name__):
     return logger
 
 
-def start_logger(name):
-    logger = setup_logger(name)
+def start_logger():
+    logger = setup_logger()
     timer = time.time()
 
     return logger, timer
@@ -81,7 +81,7 @@ def stop_logger(logger, timer):
     end = time.time()
     end_time = str(end - timer)
     print(end_time)
-    logger.info("crawler ended in ; " + end_time)
+    logger.info(f"crawler ended in {end_time}")
 
 
 if __name__ == "__main__":

@@ -1,13 +1,10 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sql_tables import Links_table
+from sql_alchemy_tables import LinksTable
 from general import file_to_list
 
 db = 'sqlite:///crawler_files/sqlite_database.db'
-
-
-# engine = create_engine('sqlite:///:memory:')
 
 
 def insert_link(data):
@@ -18,7 +15,7 @@ def insert_link(data):
 
     # insert a item
 
-    link = Links_table(link_url=data)
+    link = LinksTable(link_url=data)
 
     # instead session.add you can use bulk_save_objects
 
@@ -28,14 +25,14 @@ def insert_link(data):
 
 
 def insert_link_list(link_list, website):
+    save_list = []
     engine = create_engine(db)
 
     Session = sessionmaker(bind=engine)
     session = Session()
-    save_list = []
-    # insert a item
-    for item in link_list:
-        save_list.append(Links_table(link=item, website=website))
+
+    for link in link_list:
+        save_list.append(LinksTable(link=link, website=website))
 
     save_list = set(save_list)
 

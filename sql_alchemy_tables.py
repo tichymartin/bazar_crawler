@@ -15,8 +15,8 @@ session = Session()
 Base = declarative_base()
 
 
-class Links_table(Base):
-    __tablename__ = "links"
+class LinksTable(Base):
+    __tablename__ = "links_table"
 
     link_id = Column(Integer, primary_key=True)
     link = Column(String(255), index=True, unique=True)

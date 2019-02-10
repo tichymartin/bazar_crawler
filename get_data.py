@@ -124,25 +124,6 @@ def get_image_from_url(url):
     return img_path
 
 
-def tst_get_data_sbazar(link):
-    session = HTMLSession()
-    r = session.get(link)
-
-    img = r.html.find("img.ob-c-gallery__img", first=True).attrs
-    img_url = "https:" + img["src"]
-
-    return img_url
-
-
-def tst_get_data_bazos(link):
-    session = HTMLSession()
-    r = session.get(link)
-
-    img = r.html.find("img.carousel-cell-image", first=True).attrs
-    img_url = img["data-flickity-lazyload"]
-    return img_url
-
-
 if __name__ == "__main__":
     letgo_list = ['https://www.letgo.cz/item/ikea-glenn-barova-zidle-iid-14236303',
                   'https://www.letgo.cz/item/vse-za-900kc-ikea-knihovna-regalovy-policovy-dil-psaci-stul-a-zidle-iid-14232380',

@@ -1,7 +1,7 @@
 from get_data import get_data_bazos, get_data_sbazar, get_data_letgo
 from get_links import get_links_bazos, get_links_sbazar, get_links_letgo
-from sql_query import query_link
-from sql_inserts import insert_link_list
+from sql_alchemy_query import query_link
+from sql_alchemy_inserts import insert_link_list
 from links import stopusers_set, stopwords_set, keywords_set
 
 

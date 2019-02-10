@@ -12,6 +12,7 @@ def send_mails(all_data, test=False):
         if test:
             print(f"sending a mail with{data}")
         else:
+            # print("tohle neni test")
             send_mail(data)
 
 

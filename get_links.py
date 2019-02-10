@@ -11,7 +11,7 @@ def get_links_sbazar(url):
     for tag in tags:
         link_list.append(list(tag.links)[0])
 
-    return link_list
+    return list(set(link_list))
 
 
 def get_links_bazos(raw_url):
@@ -36,7 +36,7 @@ def get_links_bazos(raw_url):
             break
         counter += 20
 
-    return link_list
+    return list(set(link_list))
 
 
 def get_links_letgo(keyword):
@@ -48,7 +48,8 @@ def get_links_letgo(keyword):
     for link in all_links:
         if link.startswith("/item/"):
             link_list.append(f"https://www.letgo.cz{link}")
-    return link_list
+
+    return list(set(link_list))
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sql_tables import Links_table
-from sql_inserts import insert_link
+from sql_alchemy_tables import LinksTable
+from sql_alchemy_inserts import insert_link
 
 db = 'sqlite:///crawler_files/sqlite_database.db'
 
@@ -12,7 +12,7 @@ def query_link(link, website):
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    record = session.query(Links_table).filter(Links_table.website == website, Links_table.link == link).first()
+    record = session.query(LinksTable).filter(LinksTable.website == website, LinksTable.link == link).first()
 
     return record
 
@@ -58,4 +58,4 @@ def query_link(link, website):
 
 
 if __name__ == "__main__":
-    print(query_wordlist())
+    pass

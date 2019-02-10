@@ -10,16 +10,29 @@ def get_links_from_website(links_dict):
     for website in links_dict:
         if website == "sbazar":
             new_links_dict["sbazar"] = []
+
             for link in links_dict[website]:
                 new_links_dict["sbazar"].extend(get_links_sbazar(link))
+
+            new_links_dict["sbazar"] = list(set(new_links_dict["sbazar"]))
+
         elif website == "bazos":
             new_links_dict["bazos"] = []
+
             for link in links_dict[website]:
                 new_links_dict["bazos"].extend(get_links_bazos(link))
+
+            new_links_dict["bazos"] = list(set(new_links_dict["bazos"]))
+
         elif website == "letgo":
             new_links_dict["letgo"] = []
+
             for link in links_dict[website]:
                 new_links_dict["letgo"].extend(get_links_letgo(link))
+
+            new_links_dict["letgo"] = list(set(new_links_dict["letgo"]))
+
+
 
     return new_links_dict
 

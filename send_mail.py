@@ -10,7 +10,7 @@ import os
 def send_mails(all_data, test=False):
     for data in all_data:
         if test:
-            print(f"sending a mail with{data}")
+            print(f'sending a mail with{data["link"]}')
         else:
             # print("tohle neni test")
             send_mail(data)

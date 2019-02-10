@@ -41,7 +41,7 @@ def get_links_bazos(raw_url):
 
 def get_links_letgo(keyword):
     link_list = []
-    url_base = f"https://www.letgo.cz/items/q-{keyword}"
+    url_base = f"https://www.letgo.cz/items/q-{keyword}?sorting=desc-creation"
     session = HTMLSession()
     r = session.get(url_base)
     all_links = r.html.links
@@ -54,5 +54,5 @@ def get_links_letgo(keyword):
 
 if __name__ == '__main__':
 
-    get_links_letgo("židle")
+    print(get_links_letgo("židle"))
     # print(get_links_bazos("nabytek.bazos.cz/kresla"))

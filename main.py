@@ -32,8 +32,6 @@ def get_links_from_website(links_dict):
 
             new_links_dict["letgo"] = list(set(new_links_dict["letgo"]))
 
-
-
     return new_links_dict
 
 

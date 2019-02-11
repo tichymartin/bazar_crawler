@@ -52,7 +52,19 @@ def get_links_letgo(keyword):
     return list(set(link_list))
 
 
-if __name__ == '__main__':
+def get_links_annonce(keyword):
+    link_list = []
+    url_base = f"https://www.annonce.cz/{keyword}$18.html?sort=ageasc&nabidkovy=1"
+    session = HTMLSession()
+    r = session.get(url_base)
+    all_links = r.html.links
+    for link in all_links:
+        if link.startswith("/inzerat/"):
+            link_list.append(f"https://www.annonce.cz{link}")
 
-    print(get_links_letgo("židle"))
-    # print(get_links_bazos("nabytek.bazos.cz/kresla"))
+    return list(set(link_list))
+
+
+if __name__ == '__main__':
+    for l in get_links_anonce():
+        print(l)

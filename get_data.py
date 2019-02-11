@@ -9,6 +9,8 @@ def get_data_sbazar(link):
     session = HTMLSession()
     r = session.get(link)
 
+    data["link"] = link
+
     try:
         img = r.html.find("img.ob-c-gallery__img", first=True).attrs
         data["img_url"] = "https:" + img["src"]
@@ -36,7 +38,6 @@ def get_data_sbazar(link):
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     words_set = set(title_body.lower().split())
     data["words_set"] = words_set
-    data["link"] = link
 
     return data
 
@@ -45,6 +46,8 @@ def get_data_bazos(link):
     data = {}
     session = HTMLSession()
     r = session.get(link)
+
+    data["link"] = link
 
     try:
         img = r.html.find("img.carousel-cell-image", first=True).attrs
@@ -68,7 +71,6 @@ def get_data_bazos(link):
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     words_set = set(title_body.lower().split())
     data["words_set"] = words_set
-    data["link"] = link
 
     return data
 
@@ -77,6 +79,8 @@ def get_data_letgo(link):
     data = {}
     session = HTMLSession()
     r = session.get(link)
+
+    data["link"] = link
 
     try:
         img = r.html.find("._3v5bo img", first=True).attrs
@@ -103,7 +107,55 @@ def get_data_letgo(link):
     title_body = data["title"] + " " + body
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     data["words_set"] = set(title_body.lower().split())
+
+    return data
+
+
+def get_data_annonce(link):
+    data = {}
+    session = HTMLSession()
+    r = session.get(link)
+
     data["link"] = link
+
+    try:
+        img = r.html.find(".carousel-detail", first=True).attrs
+        data["img_url"] = f'https://www.annonce.cz{img["data-full"]}'
+    except AttributeError:
+        data["img_url"] = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
+
+    try:
+        user = r.html.find(".phone-link", first=True).attrs
+        data["user"] = user["href"].lstrip("tel:")
+    except AttributeError:
+        data["user"] = "Není" \
+                       ""
+    # location = "table.attrs > tbody > tr > td > a"
+    try:
+        data["location"] = r.html.find("table.attrs > tbody > tr > td > a")[-1].text
+
+    except AttributeError:
+        data["location"] = "Není"
+
+    except IndexError:
+        data["location"] = "Není"
+
+    data["title"] = r.html.find(".d2-fullwidth", first=True).text
+
+    try:
+        data["price"] = r.html.find(".price-row td", first=True).text
+    except AttributeError:
+        data["price"] = "Není"
+
+    try:
+        body = r.html.find(".ad-desc", first=True).text
+    except AttributeError:
+        body = ""
+
+    title_body = data["title"] + " " + body
+    title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
+    data["words_set"] = set(title_body.lower().split())
+
     return data
 
 
@@ -125,26 +177,6 @@ def get_image_from_url(url):
 
 
 if __name__ == "__main__":
-    letgo_list = ['https://www.letgo.cz/item/ikea-glenn-barova-zidle-iid-14236303',
-                  'https://www.letgo.cz/item/vse-za-900kc-ikea-knihovna-regalovy-policovy-dil-psaci-stul-a-zidle-iid-14232380',
-                  'https://www.letgo.cz/item/kuchynsky-stul-dve-zidle-iid-14233539',
-                  'https://www.letgo.cz/item/jidelni-stul-4-zidle-iid-14233479',
-                  'https://www.letgo.cz/item/stolickazidlicka-iid-14234917',
-                  'https://www.letgo.cz/item/jidelni-zidle-iid-14234821',
-                  'https://www.letgo.cz/item/kuchynske-zidle-ikea-iid-14233239',
-                  'https://www.letgo.cz/item/stul-6-zidli-iid-14232786',
-                  'https://www.letgo.cz/item/psaci-stul-a-zidle-iid-14236192',
-                  'https://www.letgo.cz/item/barova-zidle-glenn-iid-14236419',
-                  'https://www.letgo.cz/item/pohodlna-kozena-jidelni-zidle-ikea-iid-14235793',
-                  'https://www.letgo.cz/item/kancelarska-zidle-iid-14232788',
-                  'https://www.letgo.cz/item/drevene-calounene-zidle-2ks-iid-14232868',
-                  'https://www.letgo.cz/item/toaletni-zidle-top-stav-iid-14233103',
-                  'https://www.letgo.cz/item/zidle-ikea-franklin-63-cm-bila-iid-14234052',
-                  'https://www.letgo.cz/item/jidelni-zidle-iid-14233463',
-                  'https://www.letgo.cz/item/decka-plastova-zidle-iid-14233150',
-                  'https://www.letgo.cz/item/stul-a-zidle-za-odvoz-iid-14234149',
-                  'https://www.letgo.cz/item/pc-zidle-iid-14235785']
-    letgo_link_no_title = 'https://www.letgo.cz/item/zidle-iid-14234456'
-    letgo_link = "https://www.letgo.cz/item/stul-6-zidli-iid-14232786"
-    for l in letgo_list:
-        get_data_letgo(l)
+    annonce_link = "https://www.annonce.cz/inzerat/-2-x-kresla-starsi--43704808-wtpk4n.html"
+
+    print(get_data_annonce(annonce_link))

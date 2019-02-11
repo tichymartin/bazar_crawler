@@ -70,8 +70,8 @@ def setup_logger(name=__name__):
     return logger
 
 
-def start_logger():
-    logger = setup_logger()
+def start_logger(name):
+    logger = setup_logger(name)
     timer = time.time()
 
     return logger, timer

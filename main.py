@@ -1,8 +1,8 @@
-from get_data import get_data_bazos, get_data_sbazar, get_data_letgo
-from get_links import get_links_bazos, get_links_sbazar, get_links_letgo
+from get_links import get_links_bazos, get_links_sbazar, get_links_letgo, get_links_annonce
+from get_data import get_data_bazos, get_data_sbazar, get_data_letgo, get_data_annonce
 from sql_alchemy_query import query_link
 from sql_alchemy_inserts import insert_link_list
-from links import stopusers_set, stopwords_set, keywords_set
+from data_file import stopusers_set, stopwords_set, keywords_set
 
 
 def get_links_from_website(links_dict):
@@ -31,6 +31,14 @@ def get_links_from_website(links_dict):
                 new_links_dict["letgo"].extend(get_links_letgo(link))
 
             new_links_dict["letgo"] = list(set(new_links_dict["letgo"]))
+
+        elif website == "annonce":
+            new_links_dict["annonce"] = []
+
+            for link in links_dict[website]:
+                new_links_dict["annonce"].extend(get_links_annonce(link))
+
+            new_links_dict["annonce"] = list(set(new_links_dict["annonce"]))
 
     return new_links_dict
 
@@ -69,6 +77,11 @@ def search_links_for_metadata(links_to_check):
         if website == "letgo":
             for link in links_to_check[website]:
                 metadata = get_data_letgo(link)
+                data_to_compare_with_sets.append(metadata)
+
+        if website == "annonce":
+            for link in links_to_check[website]:
+                metadata = get_data_annonce(link)
                 data_to_compare_with_sets.append(metadata)
 
     return data_to_compare_with_sets

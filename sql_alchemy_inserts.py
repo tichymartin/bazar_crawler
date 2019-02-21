@@ -1,27 +1,27 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sql_alchemy_tables import LinksTable
+from sql_alchemy_tables import LinksTable, GoodOnes, BadOnesUser, BadOnesKeywords
 from general import file_to_list
 
 db = 'sqlite:///crawler_files/sqlite_database.db'
 
 
-def insert_link(data):
-    engine = create_engine(db)
-
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
-    # insert a item
-
-    link = LinksTable(link_url=data)
-
-    # instead session.add you can use bulk_save_objects
-
-    session.add(link)
-    session.commit()
-    print("ukládám do databáze", link.link_url)
+# def insert_link(data):
+#     engine = create_engine(db)
+#
+#     Session = sessionmaker(bind=engine)
+#     session = Session()
+#
+#     # insert a item
+#
+#     link = LinksTable(link_url=data)
+#
+#     # instead session.add you can use bulk_save_objects
+#
+#     session.add(link)
+#     session.commit()
+#     print("ukládám do databáze", link.link_url)
 
 
 def insert_link_list(link_list, website):
@@ -38,6 +38,23 @@ def insert_link_list(link_list, website):
 
     session.bulk_save_objects(save_list)
     session.commit()
+
+
+def insert_good_ones(link_list):
+    save_list = []
+    engine = create_engine(db)
+
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    for link in link_list:
+        save_list.append(GoodOnes(website=link["website"], link=link["link"], keywords=link["keywords"]))
+
+    save_list = set(save_list)
+
+    session.bulk_save_objects(save_list)
+    session.commit()
+
 
 #
 # def insert_keywords_to_db():

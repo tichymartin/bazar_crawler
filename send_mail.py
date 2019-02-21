@@ -1,4 +1,5 @@
 from get_data import get_image_from_url
+
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText

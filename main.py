@@ -1,7 +1,7 @@
 from get_links import get_links_bazos, get_links_sbazar, get_links_letgo, get_links_annonce
 from get_data import get_data_bazos, get_data_sbazar, get_data_letgo, get_data_annonce
 from sql_alchemy_query import query_link
-from sql_alchemy_inserts import insert_link_list
+from sql_alchemy_inserts import insert_link_list, insert_good_ones
 from data_file import stopusers_set, stopwords_set, keywords_set
 
 
@@ -88,25 +88,37 @@ def search_links_for_metadata(links_to_check):
 
 
 def compare_keywords(metadata):
-    data_to_send = []
+    links_to_send_by_email = []
+    links_stopped_by_stop_users = []
+    links_stopped_by_stopwords = []
+
     for single_data in metadata:
         user = set()
         user.add(single_data['user'])
 
         if stopusers_set.intersection(user):
+            links_stopped_by_stop_users.append(metadata)
             continue
 
         elif stopwords_set.intersection(single_data["words_set"]):
+            single_data["stopwords"] = set.intersection(stopwords_set, single_data["words_set"])
+            links_stopped_by_stopwords.append(metadata)
             continue
 
         elif keywords_set.intersection(single_data["words_set"]):
             single_data["keywords"] = set.intersection(keywords_set, single_data["words_set"])
-            data_to_send.append(single_data)
+            links_to_send_by_email.append(single_data)
 
         else:
             continue
 
-    return data_to_send
+    return links_to_send_by_email, links_stopped_by_stop_users, links_stopped_by_stopwords
+
+
+def insert_data_to_db(links_to_send_by_email, links_stopped_by_stop_users, links_stopped_by_stopwords):
+    insert_good_ones(links_to_send_by_email)
+
+    pass
 
 
 if __name__ == "__main__":

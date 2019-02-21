@@ -23,25 +23,31 @@ class LinksTable(Base):
     website = Column(String(10))
 
 
-# class Keywords(Base):
-#     __tablename__ = "keywords"
-#
-#     id = Column(Integer, primary_key=True)
-#     keyword = Column(String(50), unique=True)
-#
-#
-# class Stopwords(Base):
-#     __tablename__ = "stopwords"
-#
-#     id = Column(Integer, primary_key=True)
-#     stopword = Column(String(50), unique=True)
-#
-#
-# class Stopusers(Base):
-#     __tablename__ = "stopusers"
-#
-#     id = Column(Integer, primary_key=True)
-#     stopuser = Column(String(50), unique=True)
+class GoodOnes(Base):
+    __tablename__ = "good_ones"
+
+    id = Column(Integer, primary_key=True)
+    link = Column(String(255), index=True, unique=True)
+    website = Column(String(10))
+    keywords = Column(String(255))
+
+
+class BadOnesUser(Base):
+    __tablename__ = "bad_ones_user"
+
+    id = Column(Integer, primary_key=True)
+    link = Column(String(255), index=True, unique=True)
+    website = Column(String(10))
+    user = Column(String(30))
+
+
+class BadOnesKeywords(Base):
+    __tablename__ = "bad_ones_keywords"
+
+    id = Column(Integer, primary_key=True)
+    link = Column(String(255), index=True, unique=True)
+    website = Column(String(10))
+    keywords = Column(String(255))
 
 
 def write_tables_to_db():

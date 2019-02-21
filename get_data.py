@@ -36,8 +36,8 @@ def get_data_sbazar(link):
 
     title_body = data["title"] + " " + body
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
-    words_set = set(title_body.lower().split())
-    data["words_set"] = words_set
+    data["words_set"] = set(title_body.lower().split())
+    data["website"] = "sbazar"
 
     return data
 
@@ -69,8 +69,8 @@ def get_data_bazos(link):
 
     title_body = data["title"] + " " + body
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
-    words_set = set(title_body.lower().split())
-    data["words_set"] = words_set
+    data["words_set"] = set(title_body.lower().split())
+    data["website"] = "bazos"
 
     return data
 
@@ -107,6 +107,7 @@ def get_data_letgo(link):
     title_body = data["title"] + " " + body
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     data["words_set"] = set(title_body.lower().split())
+    data["website"] = "letgo"
 
     return data
 
@@ -155,6 +156,7 @@ def get_data_annonce(link):
     title_body = data["title"] + " " + body
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
     data["words_set"] = set(title_body.lower().split())
+    data["website"] = "annonce"
 
     return data
 

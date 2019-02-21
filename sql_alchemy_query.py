@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sql_alchemy_tables import LinksTable
-from sql_alchemy_inserts import insert_link
+# from sql_alchemy_inserts import insert_link
 
 db = 'sqlite:///crawler_files/sqlite_database.db'
 

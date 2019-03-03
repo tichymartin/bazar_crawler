@@ -11,7 +11,7 @@ import os
 def send_mails(all_data, test=False):
     for data in all_data:
         if test:
-            print(f'sending a mail with {data["link"]}')
+            print(f'test - sending a mail with {data["link"]}')
         else:
             # print("tohle neni test")
             send_mail(data)
@@ -30,7 +30,7 @@ def send_mail(data):
     from_addr = "kouril53@gmail.com"
     to_addr = "kouril53@gmail.com"
     username = "kouril53@gmail.com"
-    password = "kourilzdenek01cz"
+    password = "Bulik01cz"
     keywords = ", ".join(data["keywords"])
 
     msg = MIMEMultipart()

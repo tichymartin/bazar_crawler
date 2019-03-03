@@ -87,6 +87,8 @@ def get_data_letgo(link):
         data["img_url"] = img["srcset"].split()[0]
     except AttributeError:
         data["img_url"] = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
+    except IndexError:
+        data["img_url"] = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
 
     try:
         data["user"] = r.html.find(".hBaak", first=True).text
@@ -179,6 +181,9 @@ def get_image_from_url(url):
 
 
 if __name__ == "__main__":
-    annonce_link = "https://www.annonce.cz/inzerat/-2-x-kresla-starsi--43704808-wtpk4n.html"
+    # annonce_link = "https://www.annonce.cz/inzerat/-2-x-kresla-starsi--43704808-wtpk4n.html"
+    #
+    # print(get_data_annonce(annonce_link))
 
-    print(get_data_annonce(annonce_link))
+    letgolink = "https://www.letgo.cz/item/zidle-starozitna-iid-14639209"
+    print(get_data_letgo(letgolink))

@@ -27,7 +27,7 @@ keywords_set = {'thonet', 'thonety', 'tonety', 'tonet', 'ton', 'hospoda', 'hospo
                 'restaurace', 'restaurační', 'barová', 'barové', 'barový', 'barovky', 'baru', 'finská', 'finské',
                 'fischel',
                 'kropáček', 'koželka', 'halabala', 'jhalabala', 'kohn', 'mundus', 'brusel', 'artdeco', 'art deco',
-                'expo', 'retro',
+                'expo',
                 'ušák', 'ušáky', 'kyvná', 'kyvné', 'polohovatelná', 'polohovatelné', 'polohovatelný', 'polohovací',
                 'křesílko', 'křesílka', 'houpací', 'kinolavice', 'chippendale', 'stojací', 'chromový', 'chromová',
                 'chromové', 'chromovaný', 'chromované', 'chromovaná', 'funkcionalistická', 'funkcionalistický',

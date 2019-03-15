@@ -5,6 +5,8 @@ from general import start_logger, stop_logger
 from data_file import links_dict
 
 if __name__ == '__main__':
+    test = False
+
     logger, timer = start_logger("start")
 
     new_links = get_links_from_website(links_dict)
@@ -14,6 +16,6 @@ if __name__ == '__main__':
     links_to_send_by_email, links_stopped_by_stop_users, links_stopped_by_stopwords = compare_keywords(
         data_to_compare_with_sets)
     # insert_data_to_db(links_to_send_by_email, links_stopped_by_stop_users, links_stopped_by_stopwords)
-    send_mails(links_to_send_by_email, test=False)
+    send_mails(links_to_send_by_email, test)
 
     stop_logger(logger, timer)

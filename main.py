@@ -66,6 +66,7 @@ def search_links_for_metadata(links_to_check):
 
         if website == "sbazar":
             for link in links_to_check[website]:
+                print(link)
                 metadata = get_data_sbazar(link)
                 data_to_compare_with_sets.append(metadata)
 

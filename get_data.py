@@ -27,7 +27,9 @@ def get_data_sbazar(link):
     data["user"] = r.html.find("a.c-seller-info__name", first=True).text.lower()
     # print(data["user"])
 
-    data["location"] = r.html.find("a.atm-link", first=True).text
+    # data["location"] = r.html.find("a.atm-link", first=True).text
+    "atm-link dava telefonni cislo"
+    data["location"] = r.html.find("a.p-uw-item__link", first=True).text
     # print(data["location"])
     try:
         body = r.html.find("p.p-uw-item__description", first=True).text
@@ -186,4 +188,10 @@ if __name__ == "__main__":
     # print(get_data_annonce(annonce_link))
 
     letgolink = "https://www.letgo.cz/item/zidle-starozitna-iid-14639209"
-    print(get_data_letgo(letgolink))
+    sbazarlink = "https://www.sbazar.cz/maja.krkynek/detail/102786816-skolni-zidle"
+    sbazarlink = "https://www.sbazar.cz/ledenjakub/detail/113576061-starozitny-stolek"
+    # sbazarlink = "https://www.sbazar.cz/ateliervidenska/detail/113576301--1430-znackove-zidle-ton-o-heardtl-4x"
+    print(get_data_sbazar(sbazarlink))
+    test_data = get_data_sbazar(sbazarlink)
+    for headr, data in test_data.items():
+        print(f"{headr}, {data}")

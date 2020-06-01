@@ -1,4 +1,4 @@
-from tests.test_data_file import links_dict
+from .test_data_file import links_dict
 from main import get_links_from_website, search_links_for_metadata
 
 new_links = {

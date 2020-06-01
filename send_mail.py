@@ -6,6 +6,7 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from general import setup_logger
 import os
+import yagmail
 
 
 def send_mails(all_data, test=False):
@@ -13,8 +14,32 @@ def send_mails(all_data, test=False):
         if test:
             print(f'test - sending a mail with {data["link"]}')
         else:
-            # print("tohle neni test")
-            send_mail(data)
+            print(f'tohle neni test - sending a mail with {data["link"]}')
+            # send_mail(data)
+            send_mail_yagmail(data)
+
+
+def send_mail_yagmail(data):
+    logger = setup_logger("email")
+
+    receiver = "kouril53@gmail.com"
+    filename = get_image_from_url(data["img_url"])
+
+    keywords = ", ".join(data["keywords"])
+    price = f'cena: {data["price"]}'
+    location = f'místo: {data["location"]}'
+    keywords_text = f'klíčová slova: {keywords}'
+    body = f'{price}\n{location}\n{keywords_text}\n{data["title"]}\n{data["link"]}'
+
+    yag = yagmail.SMTP("kouril53@gmail.com", "Bulik01cz")
+    yag.send(
+        to=receiver,
+        subject=f'{keywords} {data["price"]}',
+        contents=body,
+        attachments=filename,
+    )
+
+    logger.info("email send ; " + data["link"])
 
 
 def send_mail(data):

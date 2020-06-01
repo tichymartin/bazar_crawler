@@ -4,41 +4,23 @@ from sql_alchemy_query import query_link
 from sql_alchemy_inserts import insert_link_list, insert_good_ones
 from data_file import stopusers_set, stopwords_set, keywords_set
 
+func_dict = {
+    "sbazar": [get_links_sbazar, get_data_sbazar],
+    "bazos": [get_links_bazos, get_data_bazos],
+    "letgo": [get_links_letgo, get_data_letgo],
+    "annonce": [get_links_annonce, get_data_annonce],
+}
+
 
 def get_links_from_website(links_dict):
     new_links_dict = {}
     for website in links_dict:
-        if website == "sbazar":
-            new_links_dict["sbazar"] = []
+        new_links_dict[website] = []
 
-            for link in links_dict[website]:
-                new_links_dict["sbazar"].extend(get_links_sbazar(link))
+        for link in links_dict[website]:
+            new_links_dict[website].extend(func_dict[website][0](link))
 
-            new_links_dict["sbazar"] = list(set(new_links_dict["sbazar"]))
-
-        elif website == "bazos":
-            new_links_dict["bazos"] = []
-
-            for link in links_dict[website]:
-                new_links_dict["bazos"].extend(get_links_bazos(link))
-
-            new_links_dict["bazos"] = list(set(new_links_dict["bazos"]))
-
-        elif website == "letgo":
-            new_links_dict["letgo"] = []
-
-            for link in links_dict[website]:
-                new_links_dict["letgo"].extend(get_links_letgo(link))
-
-            new_links_dict["letgo"] = list(set(new_links_dict["letgo"]))
-
-        elif website == "annonce":
-            new_links_dict["annonce"] = []
-
-            for link in links_dict[website]:
-                new_links_dict["annonce"].extend(get_links_annonce(link))
-
-            new_links_dict["annonce"] = list(set(new_links_dict["annonce"]))
+        new_links_dict[website] = list(set(new_links_dict[website]))
 
     return new_links_dict
 
@@ -63,27 +45,9 @@ def insert_new_links_into_database(new_links_dict):
 def search_links_for_metadata(links_to_check):
     data_to_compare_with_sets = []
     for website in links_to_check:
-
-        if website == "sbazar":
-            for link in links_to_check[website]:
-                print(link)
-                metadata = get_data_sbazar(link)
-                data_to_compare_with_sets.append(metadata)
-
-        if website == "bazos":
-            for link in links_to_check[website]:
-                metadata = get_data_bazos(link)
-                data_to_compare_with_sets.append(metadata)
-
-        if website == "letgo":
-            for link in links_to_check[website]:
-                metadata = get_data_letgo(link)
-                data_to_compare_with_sets.append(metadata)
-
-        if website == "annonce":
-            for link in links_to_check[website]:
-                metadata = get_data_annonce(link)
-                data_to_compare_with_sets.append(metadata)
+        for link in links_to_check[website]:
+            metadata = func_dict[website][1](link)
+            data_to_compare_with_sets.append(metadata)
 
     return data_to_compare_with_sets
 

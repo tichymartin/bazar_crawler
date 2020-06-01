@@ -6,6 +6,7 @@ links_dict = {
 
 }
 
+
 stopwords_set = {'kancelář', 'kanceláře', 'kancelářské', 'kancelářská', 'kancelářský', 'ikea', 'ikei', 'ratanové',
                  'ratanová', 'ratanový', 'zahrady', 'zahradní', 'elektrické', 'elektrický', 'elektrická', }
 
@@ -33,7 +34,5 @@ keywords_set = {'thonet', 'thonety', 'tonety', 'tonet', 'ton', 'hospoda', 'hospo
                 'chromové', 'chromovaný', 'chromované', 'chromovaná', 'funkcionalistická', 'funkcionalistický',
                 'funkcionalistické', 'industriální', }
 
-
 # for word in sorted(list(keywords_set)):
 #     print(word)
-

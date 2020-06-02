@@ -33,7 +33,8 @@ def send_mail_yagmail(data):
     body = f'{price}\n{location}\n{keywords_text}\n{data["title"]}\n{data["link"]}'
 
     # yag = yagmail.SMTP("kouril53@gmail.com", "Bulik01cz")
-    yag = yagmail.SMTP("tichymartin11@gmail.com", "p0pcornpArek")
+    yag = yagmail.SMTP("tichymartin11@gmail.com", "bdkhoercnotbupqg")
+    # yag = yagmail.SMTP("tichymartin11@gmail.com")
     yag.send(
         to=receiver,
         subject=f'{keywords} {data["price"]}',

@@ -22,7 +22,7 @@ def send_mails(all_data, test=False):
 def send_mail_yagmail(data):
     logger = setup_logger("email")
 
-    receiver = "karelundkarel@gmail.com"
+    receiver = "kouril53@gmail.com"
     filename = get_image_from_url(data["img_url"])
 
     keywords = ", ".join(data["keywords"])

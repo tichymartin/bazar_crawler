@@ -39,6 +39,7 @@ def send_mail_yagmail(data):
         attachments=filename,
     )
 
+    os.remove(filename)
     logger.info("email send ; " + data["link"])
 
 

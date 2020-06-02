@@ -189,9 +189,24 @@ if __name__ == "__main__":
 
     letgolink = "https://www.letgo.cz/item/zidle-starozitna-iid-14639209"
     sbazarlink = "https://www.sbazar.cz/maja.krkynek/detail/102786816-skolni-zidle"
-    sbazarlink = "https://www.sbazar.cz/ledenjakub/detail/113576061-starozitny-stolek"
+    sbazarlink = "https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck"
     # sbazarlink = "https://www.sbazar.cz/ateliervidenska/detail/113576301--1430-znackove-zidle-ton-o-heardtl-4x"
     print(get_data_sbazar(sbazarlink))
     test_data = get_data_sbazar(sbazarlink)
     for headr, data in test_data.items():
         print(f"{headr}, {data}")
+
+    sbazar_metadata = {
+        'link': 'https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck',
+        'img_url': 'https://d46-a.sdn.cz/d_46/c_img_gU_E/gOtGHu.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1',
+        'title': 'starožitná židle THONET Nr. A 238 Schneck', 'price': '3\xa0949', 'user': 'martin tolnay',
+        'location': 'Jedovnice',
+        'words_set': {'zaslání', 'přeleštěno', 'šelakem', 'povrchu', '238', 'doprava', 'roce', 'starožitná', '1928',
+                      'pořádku', 'renovaci', 'kurýrem', 'adolf', 'schneck', 'původní', 'kterou', 'patinou', 'opěrky',
+                      'a',
+                      'nr', 'model', 'gustav', 'sedáku', 'nálepka', 'výplet', 'nebo', 'dostupný', 'dřeva', 'po',
+                      'stavu',
+                      'málo', 'osobní', 'mírně', 'židle', 'thonet', 'v', 'zajímavý', 'převzetí', 'dubového', 'lakování',
+                      'pěkném', 'pevná', 'poškozen', 's', 'navrhl', 'konstrukce', 'architekt', 'lehké', 'značky',
+                      'černé',
+                      'imitací'}, 'website': 'sbazar'}

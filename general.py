@@ -5,6 +5,12 @@ from database import create_database
 from sql_alchemy_tables import write_tables_to_db
 
 
+def delete_database_file():
+    path = r"crawler_files/"
+    database = os.path.join(path, r"sqlite_database.db")
+    os.remove(database)
+
+
 def create_database_file():
     path = r"crawler_files/"
     database = os.path.join(path, r"sqlite_database.db")

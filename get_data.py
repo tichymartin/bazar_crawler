@@ -61,9 +61,9 @@ def get_data_bazos(link):
 
     tab = r.html.find("td.listadvlevo", first=True)
     texts = tab.text.split("\n")
-    data["user"] = texts[4].lower()
-    data["location"] = texts[9]
-    data["price"] = texts[17]
+    data["user"] = texts[3].lower()
+    data["location"] = texts[13]
+    data["price"] = texts[21]
 
     data["title"] = r.html.find("h1.nadpis", first=True).text
 
@@ -188,13 +188,13 @@ if __name__ == "__main__":
     # print(get_data_annonce(annonce_link))
 
     letgolink = "https://www.letgo.cz/item/zidle-starozitna-iid-14639209"
-    sbazarlink = "https://www.sbazar.cz/maja.krkynek/detail/102786816-skolni-zidle"
+    bazoslink = "https://ostatni.bazos.cz/inzerat/120926672/parova-polokresla-thonet-mundus-b3.php"
     sbazarlink = "https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck"
     # sbazarlink = "https://www.sbazar.cz/ateliervidenska/detail/113576301--1430-znackove-zidle-ton-o-heardtl-4x"
-    print(get_data_sbazar(sbazarlink))
-    test_data = get_data_sbazar(sbazarlink)
+    # print(get_data_bazos(bazoslink))
+    test_data = get_data_bazos(bazoslink)
     for headr, data in test_data.items():
-        print(f"{headr}, {data}")
+        print(f"{headr}: {data}")
 
     sbazar_metadata = {
         'link': 'https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck',

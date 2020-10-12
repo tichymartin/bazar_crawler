@@ -70,6 +70,10 @@ def setup_logger(name=__name__):
     formatter = logging.Formatter('%(asctime)s ; %(name)s ; %(levelname)s ; %(message)s')
     handler.setFormatter(formatter)
 
+    # The problem is that every time you call setup_logger(), it's adding another handler to the instance, which causes the duplicate logs.
+    if logger.hasHandlers():
+        logger.handlers.clear()
+
     # add the handlers to the logger
     logger.addHandler(handler)
 

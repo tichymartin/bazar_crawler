@@ -6,7 +6,6 @@ links_dict = {
 
 }
 
-
 stopwords_set = {'kancelář', 'kanceláře', 'kancelářské', 'kancelářská', 'kancelářský', 'ikea', 'ikei', 'ratanové',
                  'ratanová', 'ratanový', 'zahrady', 'zahradní', 'elektrické', 'elektrický', 'elektrická', }
 

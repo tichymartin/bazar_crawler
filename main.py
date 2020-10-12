@@ -9,6 +9,7 @@ func_dict = {
     "bazos": [get_links_bazos, get_data_bazos],
     "letgo": [get_links_letgo, get_data_letgo],
     "annonce": [get_links_annonce, get_data_annonce],
+    # "marketplace": [],
 }
 
 

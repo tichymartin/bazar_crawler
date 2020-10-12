@@ -1,22 +1,23 @@
-from get_data import get_image_from_url
-
+import os
+import yagmail
 import smtplib
+
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
+
 from general import setup_logger
-import os
-import yagmail
+from get_data import get_image_from_url
 
 
-def send_mails(all_data, test=False):
-    for data in all_data:
+def send_mails(links_to_send_by_email, test=False):
+    for link_data in links_to_send_by_email:
         if test:
-            print(f'test - sending a mail with {data["link"]}')
+            print(f'test - sending a mail with {link_data["link"]}')
         else:
-            print(f'tohle neni test - sending a mail with {data["link"]}')
-            # send_mail(data)
-            send_mail_yagmail(data)
+            print(f'tohle neni test - sending a mail with {link_data["link"]}')
+            # send_mail_smtplib(link_data)
+            send_mail_yagmail(link_data)
 
 
 def send_mail_yagmail(data):
@@ -43,7 +44,7 @@ def send_mail_yagmail(data):
     logger.info("email send ; " + data["link"])
 
 
-def send_mail(data):
+def send_mail_smtplib(data):
     logger = setup_logger("email")
     img_path = get_image_from_url(data["img_url"])
 

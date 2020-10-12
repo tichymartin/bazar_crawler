@@ -67,7 +67,7 @@ def get_data_bazos(link):
 
     data["title"] = r.html.find("h1.nadpis", first=True).text
 
-    body = r.html.find("div.popis", first=True).text
+    body = r.html.find("div.popisdetail", first=True).text
 
     title_body = data["title"] + " " + body
     title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
@@ -165,6 +165,71 @@ def get_data_annonce(link):
     return data
 
 
+def get_data_marketplace(link=None):
+    if not link:
+        link = "https://www.facebook.com/marketplace/item/748009305939357/"
+        # link = "https://www.facebook.com/marketplace/item/212316809750738/"
+    data = {}
+    session = HTMLSession()
+    r = session.get(link)
+    r.html.render()
+
+    data["link"] = link
+    img = r.html.find("img.k4urcfbm.bixrwtb6.datstx6m", first=True).attrs
+    # imgs = r.html.find("img")
+
+    # for img in imgs:
+    #     print(img)
+    data["img_url"] = img["src"]
+    # data["img_url"] = "Noneni"
+
+    texts = r.html.find(".dati1w0a.qt6c0cv9")
+
+    data["title"], data["price"], *_ = texts[0].text.splitlines()
+
+    print(f"link je: {data['link']}")
+    print(f"obrazek je: {data['img_url']}")
+    print(f"titulek je: {data['title']}")
+    print(f"cena je: {data['price']}")
+
+    try:
+        data["location"] = texts[1].text.splitlines()[3]
+        data["body"] = texts[1].text.splitlines()[2]
+
+    except:
+        data["location"] = texts[1].text.splitlines()[1]
+        data["body"] = texts[1].text.splitlines()[0]
+
+    print(f"poloha: {data['location']}")
+    print(f"body: {data['body']}")
+    print("")
+
+    # print(texts[1].text.splitlines()[3])
+
+    #
+    # data["price"] = r.html.find("b.c-price__price", first=True).text
+    # # print(data["price"])
+    #
+    # data["user"] = r.html.find("a.c-seller-info__name", first=True).text.lower()
+    # # print(data["user"])
+    #
+    # # data["location"] = r.html.find("a.atm-link", first=True).text
+    # "atm-link dava telefonni cislo"
+    # data["location"] = r.html.find("a.p-uw-item__link", first=True).text
+    # # print(data["location"])
+    # try:
+    #     body = r.html.find("p.p-uw-item__description", first=True).text
+    # except AttributeError:
+    #     body = ""
+    #
+    # title_body = data["title"] + " " + body
+    # title_body = re.sub(r'[.,"!\'–()\[\]*;:+-]', ' ', title_body)
+    # data["words_set"] = set(title_body.lower().split())
+    # data["website"] = "sbazar"
+    #
+    # return data
+
+
 def get_image_from_url(url):
     img_path = r"crawler_files/temp.jpg"
     urllib.request.urlretrieve(url, img_path)
@@ -183,30 +248,8 @@ def get_image_from_url(url):
 
 
 if __name__ == "__main__":
-    # annonce_link = "https://www.annonce.cz/inzerat/-2-x-kresla-starsi--43704808-wtpk4n.html"
-    #
-    # print(get_data_annonce(annonce_link))
-
     letgolink = "https://www.letgo.cz/item/zidle-starozitna-iid-14639209"
-    bazoslink = "https://ostatni.bazos.cz/inzerat/120926672/parova-polokresla-thonet-mundus-b3.php"
-    sbazarlink = "https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck"
-    # sbazarlink = "https://www.sbazar.cz/ateliervidenska/detail/113576301--1430-znackove-zidle-ton-o-heardtl-4x"
-    # print(get_data_bazos(bazoslink))
-    test_data = get_data_bazos(bazoslink)
-    for headr, data in test_data.items():
-        print(f"{headr}: {data}")
+    bazoslink = 'https://nabytek.bazos.cz/inzerat/126194877/sedacka-z-brousene-kuze.php'
 
-    sbazar_metadata = {
-        'link': 'https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck',
-        'img_url': 'https://d46-a.sdn.cz/d_46/c_img_gU_E/gOtGHu.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1',
-        'title': 'starožitná židle THONET Nr. A 238 Schneck', 'price': '3\xa0949', 'user': 'martin tolnay',
-        'location': 'Jedovnice',
-        'words_set': {'zaslání', 'přeleštěno', 'šelakem', 'povrchu', '238', 'doprava', 'roce', 'starožitná', '1928',
-                      'pořádku', 'renovaci', 'kurýrem', 'adolf', 'schneck', 'původní', 'kterou', 'patinou', 'opěrky',
-                      'a',
-                      'nr', 'model', 'gustav', 'sedáku', 'nálepka', 'výplet', 'nebo', 'dostupný', 'dřeva', 'po',
-                      'stavu',
-                      'málo', 'osobní', 'mírně', 'židle', 'thonet', 'v', 'zajímavý', 'převzetí', 'dubového', 'lakování',
-                      'pěkném', 'pevná', 'poškozen', 's', 'navrhl', 'konstrukce', 'architekt', 'lehké', 'značky',
-                      'černé',
-                      'imitací'}, 'website': 'sbazar'}
+    sbazarlink = "https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck"
+

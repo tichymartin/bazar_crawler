@@ -65,6 +65,23 @@ def get_links_annonce(keyword):
     return list(set(link_list))
 
 
+def get_links_marketplace():
+    link_list = []
+    url_base = "https://www.facebook.com/marketplace/prague/furniture"
+
+    session = HTMLSession()
+    r = session.get(url_base)
+    r.html.render()
+    all_links = r.html.links
+    for link in all_links:
+        if "item" in link:
+            link_list.append(f"https://www.facebook.com{link}")
+            print(f"https://www.facebook.com{link}")
+
+    return list(set(link_list))
+
+
 if __name__ == '__main__':
-    for l in get_links_anonce():
-        print(l)
+    a = ("nabytek.bazos.cz/kresla", "nabytek.bazos.cz/zidle", "ostatni.bazos.cz", )
+    for i in a:
+        print(get_links_bazos(i))

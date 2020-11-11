@@ -249,7 +249,9 @@ def get_image_from_url(url):
 
 if __name__ == "__main__":
     letgolink = "https://www.letgo.cz/item/zidle-starozitna-iid-14639209"
-    bazoslink = 'https://nabytek.bazos.cz/inzerat/126194877/sedacka-z-brousene-kuze.php'
+    # bazoslink = 'https://nabytek.bazos.cz/inzerat/126194877/sedacka-z-brousene-kuze.php'
+    bazoslink = 'https://nabytek.bazos.cz/inzerat/127511278/linka-ceske-vyroby-sykora-se-spotrebici.php'
 
     sbazarlink = "https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck"
 
+    print(get_data_bazos(bazoslink))

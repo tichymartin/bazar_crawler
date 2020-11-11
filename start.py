@@ -5,7 +5,7 @@ from general import start_logger, stop_logger
 from data_file import links_dict
 
 if __name__ == '__main__':
-    test = False
+    test = True
 
     logger, timer = start_logger("start")
 

@@ -7,7 +7,7 @@ from data_file import stopusers_set, stopwords_set, keywords_set
 func_dict = {
     "sbazar": [get_links_sbazar, get_data_sbazar],
     "bazos": [get_links_bazos, get_data_bazos],
-    "letgo": [get_links_letgo, get_data_letgo],
+    # "letgo": [get_links_letgo, get_data_letgo],
     "annonce": [get_links_annonce, get_data_annonce],
     # "marketplace": [],
 }

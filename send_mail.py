@@ -25,7 +25,7 @@ def send_mail_yagmail(data):
 
     receiver = "kouril53@gmail.com"
     receiver = "karelundkarel@gmail.com"
-    filename = get_image_from_url(data["img_url"])
+    # filename = get_image_from_url(data["img_url"])
 
     keywords = ", ".join(data["keywords"])
     price = f'cena: {data["price"]}'
@@ -38,10 +38,10 @@ def send_mail_yagmail(data):
         to=receiver,
         subject=f'{keywords} {data["price"]}',
         contents=body,
-        attachments=filename,
+        # attachments=filename,
     )
 
-    os.remove(filename)
+    # os.remove(filename)
     logger.info("email send ; " + data["link"])
 
 

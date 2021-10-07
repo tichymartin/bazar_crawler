@@ -107,5 +107,5 @@ if __name__ == '__main__':
         'words_set': {'obrazy', 'cena', 'kus', 'za', 'uvedená', 'je'},
         'keywords': {'test sbazar'},
         'website': 'sbazar'}
-    send_mail_smtplib(single_data)
-    send_mail_smtplib(data)
+    send_mail_yagmail(single_data)
+    send_mail_yagmail(data)

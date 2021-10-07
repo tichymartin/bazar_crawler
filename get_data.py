@@ -1,6 +1,8 @@
-from requests_html import HTMLSession
+import ssl
 import re
 import urllib.request
+
+from requests_html import HTMLSession
 from PIL import Image
 
 
@@ -65,7 +67,7 @@ def get_data_bazos(link):
     data["location"] = texts[13]
     data["price"] = texts[21]
 
-    data["title"] = r.html.find("h1.nadpis", first=True).text
+    data["title"] = r.html.find("h1.nadpisdetail", first=True).text
 
     body = r.html.find("div.popisdetail", first=True).text
 
@@ -231,6 +233,7 @@ def get_data_marketplace(link=None):
 
 
 def get_image_from_url(url):
+    # ssl._create_default_https_context = ssl._create_unverified_context
     img_path = r"crawler_files/temp.jpg"
     urllib.request.urlretrieve(url, img_path)
 
@@ -250,8 +253,11 @@ def get_image_from_url(url):
 if __name__ == "__main__":
     letgolink = "https://www.letgo.cz/item/zidle-starozitna-iid-14639209"
     # bazoslink = 'https://nabytek.bazos.cz/inzerat/126194877/sedacka-z-brousene-kuze.php'
-    bazoslink = 'https://zvirata.bazos.cz/inzerat/128292233/stenatka-staffordshire-bull-terrier.php'
+    bazoslink = "https://zvirata.bazos.cz/inzerat/142661276/nevska-maskarada-kotatka-s-pp.php"
+    bazos_img = 'https://www.bazos.cz/img/1/276/142661276.jpg?t=1633553028'
 
-    sbazarlink = "https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck"
-
-    print(get_data_bazos(bazoslink))
+    sbazarlink = "https://www.sbazar.cz/trempy87/detail/153662259-obrazy"
+    sbazar_img = 'https://d46-a.sdn.cz/d_46/c_img_QR_y/H3VOw9.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1'
+    print(get_data_sbazar(sbazarlink))
+    get_image_from_url(sbazar_img)
+    # print(get_data_bazos(bazoslink))

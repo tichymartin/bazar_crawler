@@ -16,8 +16,8 @@ def send_mails(links_to_send_by_email, test=False):
             print(f'test - sending a mail with {link_data["link"]}')
         else:
             print(f'tohle neni test - sending a mail with {link_data["link"]}')
-            # send_mail_smtplib(link_data)
-            send_mail_yagmail(link_data)
+            send_mail_smtplib(link_data)
+            # send_mail_yagmail(link_data)
 
 
 def send_mail_yagmail(data):
@@ -31,7 +31,8 @@ def send_mail_yagmail(data):
     price = f'cena: {data["price"]}'
     location = f'místo: {data["location"]}'
     keywords_text = f'klíčová slova: {keywords}'
-    body = f'{price}\n{location}\n{keywords_text}\n{data["title"]}\n{data["link"]}'
+    # body = f'{price}\n{location}\n{keywords_text}\n{data["title"]}\n{data["link"]}'
+    body = f'ahoj'
 
     yag = yagmail.SMTP("karelundkarel@gmail.com", "hwojpuqybnbmnqbp")
     yag.send(
@@ -55,10 +56,11 @@ def send_mail_smtplib(data):
 
     os.remove(img_path)
 
-    from_addr = "kouril53@gmail.com"
-    to_addr = "kouril53@gmail.com"
-    username = "kouril53@gmail.com"
+    from_addr = "karelundkarel@gmail.com"
+    to_addr = "karelundkarel@gmail.com"
+    username = "karelundkarel@gmail.com"
     password = "Bulik01cz"
+    password = "karel1karel1"
     keywords = ", ".join(data["keywords"])
 
     msg = MIMEMultipart()
@@ -105,5 +107,5 @@ if __name__ == '__main__':
         'words_set': {'obrazy', 'cena', 'kus', 'za', 'uvedená', 'je'},
         'keywords': {'test sbazar'},
         'website': 'sbazar'}
-    send_mail_yagmail(single_data)
-    send_mail_yagmail(data)
+    send_mail_smtplib(single_data)
+    send_mail_smtplib(data)

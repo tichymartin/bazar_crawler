@@ -259,5 +259,5 @@ if __name__ == "__main__":
     sbazarlink = "https://www.sbazar.cz/trempy87/detail/153662259-obrazy"
     sbazar_img = 'https://d46-a.sdn.cz/d_46/c_img_QR_y/H3VOw9.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1'
     print(get_data_sbazar(sbazarlink))
-    get_image_from_url(sbazar_img)
+    # get_image_from_url(sbazar_img)
     # print(get_data_bazos(bazoslink))

@@ -25,7 +25,7 @@ def send_mail_yagmail(data):
 
     receiver = "kouril53@gmail.com"
     receiver = "karelundkarel@gmail.com"
-    # filename = get_image_from_url(data["img_url"])
+    filename = get_image_from_url(data["img_url"])
 
     keywords = ", ".join(data["keywords"])
     price = f'cena: {data["price"]}'
@@ -38,10 +38,10 @@ def send_mail_yagmail(data):
         to=receiver,
         subject=f'{keywords} {data["price"]}',
         contents=body,
-        # attachments=filename,
+        attachments=filename,
     )
 
-    # os.remove(filename)
+    os.remove(filename)
     logger.info("email send ; " + data["link"])
 
 
@@ -98,4 +98,12 @@ if __name__ == '__main__':
                       'přeleštěno', 'schneck', 'lakování', 'kterou', 'značky', 'imitací', 'nálepka', 'původní',
                       'adolf', 'zaslání', 'lehké', 'kurýrem'}, 'website': 'sbazar', 'keywords': {'thonet'}
     }
+    data = {
+        'link': 'https://www.sbazar.cz/trempy87/detail/153662259-obrazy',
+        'img_url': 'https://d46-a.sdn.cz/d_46/c_img_QR_y/H3VOw9.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1',
+        'title': 'Obrazy', 'price': '149', 'user': 'timmy7', 'location': 'Plzeň',
+        'words_set': {'obrazy', 'cena', 'kus', 'za', 'uvedená', 'je'},
+        'keywords': {'test'},
+        'website': 'sbazar'}
     send_mail_yagmail(single_data)
+    send_mail_yagmail(data)

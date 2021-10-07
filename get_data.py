@@ -233,7 +233,7 @@ def get_data_marketplace(link=None):
 
 
 def get_image_from_url(url):
-    # ssl._create_default_https_context = ssl._create_unverified_context
+    ssl._create_default_https_context = ssl._create_unverified_context
     img_path = r"crawler_files/temp.jpg"
     urllib.request.urlretrieve(url, img_path)
 
@@ -258,6 +258,6 @@ if __name__ == "__main__":
 
     sbazarlink = "https://www.sbazar.cz/trempy87/detail/153662259-obrazy"
     sbazar_img = 'https://d46-a.sdn.cz/d_46/c_img_QR_y/H3VOw9.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1'
-    print(get_data_sbazar(sbazarlink))
-    # get_image_from_url(sbazar_img)
-    # print(get_data_bazos(bazoslink))
+    # print(get_data_sbazar(sbazarlink))
+    # print(get_image_from_url(sbazar_img))
+    print(get_data_bazos(bazoslink))

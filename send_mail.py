@@ -86,24 +86,24 @@ def send_mail_smtplib(data):
 
 
 if __name__ == '__main__':
-    single_data = {
-        'link': 'https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck',
-        'img_url': 'https://d46-a.sdn.cz/d_46/c_img_QR_y/H3VOw9.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1',
-        'title': 'starožitná židle THONET Nr. A 238 Schneck', 'price': '3\xa0949', 'user': 'martin tolnay',
-        'location': 'Jedovnice',
-        'words_set': {'výplet', 'opěrky', 'model', 'po', 'dubového', 'osobní', '1928', 'pořádku', 'převzetí',
-                      'starožitná', 'černé', 'dřeva', 'židle', 'málo', 'patinou', 'a', 'doprava', 'renovaci', 'sedáku',
-                      'nr', 'nebo', 'šelakem', 'pěkném', 'zajímavý', 'konstrukce', '238', 'architekt', 'gustav', 's',
-                      'povrchu', 'dostupný', 'thonet', 'roce', 'v', 'stavu', 'mírně', 'navrhl', 'poškozen', 'pevná',
-                      'přeleštěno', 'schneck', 'lakování', 'kterou', 'značky', 'imitací', 'nálepka', 'původní',
-                      'adolf', 'zaslání', 'lehké', 'kurýrem'}, 'website': 'sbazar', 'keywords': {'thonet'}
-    }
+    single_data = {'link': 'https://zvirata.bazos.cz/inzerat/142661276/nevska-maskarada-kotatka-s-pp.php',
+                   'img_url': 'https://www.bazos.cz/img/1/276/142661276.jpg?t=1633553028', 'user': 'talisman nevy',
+                   'location': '169 00 Praha 6', 'price': 'Dohodou', 'title': 'Něvská maškaráda koťátka s PP',
+                   'words_set': {'narodili', 'žijí', 'očkovaná', 'i', 'telefonicky', 'koťátka', '07', 'mazlíčka',
+                                 'testovaný', 'koťata', 'vynikající', 'nebo', 'jsou', 'plně', 'jak', 'tak', '2021',
+                                 'něvská', '“talisman', 'námi', 'chovu', 'hcm', 'socializovaní', 'negativní',
+                                 'chovatelská', 'vhodná', 'dvakrát', '“nabízí', 'nevy', 'odčervená', 'pp', '777002095',
+                                 'maminka', 'do', 'domácnosti', 'fiv', 'chov', 'více', 's', 'se', 'testování',
+                                 'informací', 'koťatka', 'tatínek', 'na', 'a', 'maškaráda', 'cz', '24', 'povahu',
+                                 'kočičí', 'čipovaní', 'stanice', 'n/n', 'k', 'sms', 'vidění', 'zvyklí', 'prodeji',
+                                 'rodiče', 'felv', 'mají', 'v', 'wc'}, 'keywords': {'test bazos'}, 'website': 'bazos'}
+
     data = {
         'link': 'https://www.sbazar.cz/trempy87/detail/153662259-obrazy',
         'img_url': 'https://d46-a.sdn.cz/d_46/c_img_QR_y/H3VOw9.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1',
         'title': 'Obrazy', 'price': '149', 'user': 'timmy7', 'location': 'Plzeň',
         'words_set': {'obrazy', 'cena', 'kus', 'za', 'uvedená', 'je'},
-        'keywords': {'test'},
+        'keywords': {'test sbazar'},
         'website': 'sbazar'}
     send_mail_yagmail(single_data)
     send_mail_yagmail(data)

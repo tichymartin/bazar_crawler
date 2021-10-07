@@ -37,7 +37,8 @@ def send_mail_yagmail(data):
     yag = yagmail.SMTP("karelundkarel@gmail.com", "hwojpuqybnbmnqbp")
     yag.send(
         to=receiver,
-        subject=f'{keywords} {data["price"]}',
+        # subject=f'{keywords} {data["price"]}',
+        subject=f'ahoj',
         contents=body,
         attachments=filename,
     )

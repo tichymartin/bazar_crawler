@@ -16,6 +16,8 @@ if __name__ == '__main__':
     links_to_send_by_email, links_stopped_by_stop_users, links_stopped_by_stopwords = compare_keywords(
         data_to_compare_with_sets)
     # insert_data_to_db(links_to_send_by_email, links_stopped_by_stop_users, links_stopped_by_stopwords)
+    # for link in links_to_send_by_email:
+    #     print(len(link["img_url"]))
     send_mails(links_to_send_by_email, test)
 
     stop_logger(logger, timer)

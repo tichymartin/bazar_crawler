@@ -88,7 +88,7 @@ def send_mail_smtplib(data):
 if __name__ == '__main__':
     single_data = {
         'link': 'https://www.sbazar.cz/martin.tolnay/detail/113051516-starozitna-zidle-thonet-nr-a-238-schneck',
-        'img_url': 'https://d46-a.sdn.cz/d_46/c_img_gU_E/gOtGHu.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1',
+        'img_url': 'https://d46-a.sdn.cz/d_46/c_img_QR_y/H3VOw9.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1',
         'title': 'starožitná židle THONET Nr. A 238 Schneck', 'price': '3\xa0949', 'user': 'martin tolnay',
         'location': 'Jedovnice',
         'words_set': {'výplet', 'opěrky', 'model', 'po', 'dubového', 'osobní', '1928', 'pořádku', 'převzetí',

@@ -24,7 +24,7 @@ def send_mail_yagmail(data):
     logger = setup_logger("email")
 
     receiver = "kouril53@gmail.com"
-    receiver = "karelundkarel@gmail.com"
+    # receiver = "karelundkarel@gmail.com"
     filename = get_image_from_url(data["img_url"])
 
     keywords = ", ".join(data["keywords"])
@@ -32,13 +32,14 @@ def send_mail_yagmail(data):
     location = f'místo: {data["location"]}'
     keywords_text = f'klíčová slova: {keywords}'
     # body = f'{price}\n{location}\n{keywords_text}\n{data["title"]}\n{data["link"]}'
-    body = f'ahoj'
+    body = f'test'
 
     yag = yagmail.SMTP("karelundkarel@gmail.com", "hwojpuqybnbmnqbp")
+    # yag = yagmail.SMTP("karelundkarel@gmail.com", "karel1karel1")
     yag.send(
         to=receiver,
         # subject=f'{keywords} {data["price"]}',
-        subject=f'ahoj',
+        subject=f'test',
         contents=body,
         attachments=filename,
     )

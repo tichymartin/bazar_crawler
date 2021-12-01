@@ -8,6 +8,11 @@ from sql_alchemy_tables import write_tables_to_db
 def delete_database_file():
     path = r"crawler_files/"
     database = os.path.join(path, r"sqlite_database.db")
+
+    if not os.path.exists(path):
+        os.makedirs(path)
+        print("Vytvořena složka " + path)
+
     os.remove(database)
 
 

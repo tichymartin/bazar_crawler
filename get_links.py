@@ -21,15 +21,21 @@ def get_links_bazos(raw_url):
     url_base = raw_url.split("/", 1).pop(0)
 
     while True:
-        url = raw_url + "/" + str(counter) + "/"
+        if counter == 0:
+            url = f"{raw_url}/"
+        else:
+            url = f"{raw_url}/{str(counter)}/"
+
         session = HTMLSession()
-        r = session.get("https://" + url)
+        r = session.get(f"https://{url}")
 
-        a_tags = r.html.find("span.nadpis a")
+        # a_tags = r.html.find("span.nadpis a")
+        links = r.html.find("div.inzeratynadpis a")
 
-        for tag in a_tags:
-            link = list(tag.links)[0]
-            link_list.append("https://" + url_base + link)
+        for one_link in links:
+            link = list(one_link.links)[0]
+            if link.startswith("/inzerat/"):
+                link_list.append(f"https://{url_base}{link}")
 
         top_tag = r.html.find(".ztop")
         if len(top_tag) == 0:
@@ -82,6 +88,6 @@ def get_links_marketplace():
 
 
 if __name__ == '__main__':
-    a = ("nabytek.bazos.cz/kresla", "nabytek.bazos.cz/zidle", "ostatni.bazos.cz", )
+    a = ("nabytek.bazos.cz/kresla", "nabytek.bazos.cz/zidle", "ostatni.bazos.cz",)
     for i in a:
         print(get_links_bazos(i))

@@ -13,15 +13,15 @@ func_dict = {
 }
 
 
-def get_links_from_website(links_dict):
+def get_links_from_website(servers_to_search):
     new_links_dict = {}
-    for website in links_dict:
-        new_links_dict[website] = []
+    for server in servers_to_search:
+        new_links_dict[server] = []
 
-        for link in links_dict[website]:
-            new_links_dict[website].extend(func_dict[website][0](link))
+        for link in servers_to_search[server]:
+            new_links_dict[server].extend(func_dict[server][0](link))
 
-        new_links_dict[website] = list(set(new_links_dict[website]))
+        new_links_dict[server] = list(set(new_links_dict[server]))
 
     return new_links_dict
 

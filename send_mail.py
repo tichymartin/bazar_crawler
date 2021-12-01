@@ -90,24 +90,15 @@ def send_mail_smtplib(data):
 
 
 if __name__ == '__main__':
-    single_data = {'link': 'https://zvirata.bazos.cz/inzerat/142661276/nevska-maskarada-kotatka-s-pp.php',
-                   'img_url': 'https://www.bazos.cz/img/1/276/142661276.jpg?t=1633553028', 'user': 'talisman nevy',
-                   'location': '169 00 Praha 6', 'price': 'Dohodou', 'title': 'Něvská maškaráda koťátka s PP',
-                   'words_set': {'narodili', 'žijí', 'očkovaná', 'i', 'telefonicky', 'koťátka', '07', 'mazlíčka',
-                                 'testovaný', 'koťata', 'vynikající', 'nebo', 'jsou', 'plně', 'jak', 'tak', '2021',
-                                 'něvská', '“talisman', 'námi', 'chovu', 'hcm', 'socializovaní', 'negativní',
-                                 'chovatelská', 'vhodná', 'dvakrát', '“nabízí', 'nevy', 'odčervená', 'pp', '777002095',
-                                 'maminka', 'do', 'domácnosti', 'fiv', 'chov', 'více', 's', 'se', 'testování',
-                                 'informací', 'koťatka', 'tatínek', 'na', 'a', 'maškaráda', 'cz', '24', 'povahu',
-                                 'kočičí', 'čipovaní', 'stanice', 'n/n', 'k', 'sms', 'vidění', 'zvyklí', 'prodeji',
-                                 'rodiče', 'felv', 'mají', 'v', 'wc'}, 'keywords': {'test bazos'}, 'website': 'bazos'}
+    single_data = {'link': 'https://www.sbazar.cz/bystricka1951/detail/54451585-sleva-obraz-cesky-krumlov-kostel',
+                   'img_url': 'https://d46-a.sdn.cz/d_46/c_img_G_g/lI49Ps.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1',
+                   'title': 'SLEVA - Obraz "Český Krumlov - kostel"', 'price': '1\xa0000', 'user': 'bystricka1951',
+                   'location': 'Mělník',
+                   'words_set': {'krumlov', 'zájem', 'prosím', 'nutno', 'akryl', 'pomine', 'obraz', 'český', 'kostel',
+                                 'sleva', 'o', 'přičíst', 'li', 'originál', 'a3', 'poštovné', 'velikosti', 'zboží',
+                                 'koupi', 'sdělte', 'na', 'desce', 'nerámováno'},
+                   'keywords': {'test sbazar'},
+                   'website': 'sbazar'}
 
-    data = {
-        'link': 'https://www.sbazar.cz/trempy87/detail/153662259-obrazy',
-        'img_url': 'https://d46-a.sdn.cz/d_46/c_img_QR_y/H3VOw9.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1',
-        'title': 'Obrazy', 'price': '149', 'user': 'timmy7', 'location': 'Plzeň',
-        'words_set': {'obrazy', 'cena', 'kus', 'za', 'uvedená', 'je'},
-        'keywords': {'test sbazar'},
-        'website': 'sbazar'}
     send_mail_yagmail(single_data)
-    send_mail_yagmail(data)
+    # send_mail_yagmail(data)

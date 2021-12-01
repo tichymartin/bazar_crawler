@@ -256,8 +256,8 @@ if __name__ == "__main__":
     bazoslink = "https://zvirata.bazos.cz/inzerat/142661276/nevska-maskarada-kotatka-s-pp.php"
     bazos_img = 'https://www.bazos.cz/img/1/276/142661276.jpg?t=1633553028'
 
-    sbazarlink = "https://www.sbazar.cz/trempy87/detail/153662259-obrazy"
+    sbazarlink = "https://www.sbazar.cz/bystricka1951/detail/54451585-sleva-obraz-cesky-krumlov-kostel"
     sbazar_img = 'https://d46-a.sdn.cz/d_46/c_img_QR_y/H3VOw9.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1'
-    # print(get_data_sbazar(sbazarlink))
+    print(get_data_sbazar(sbazarlink))
     # print(get_image_from_url(sbazar_img))
-    print(get_data_bazos(bazoslink))
+    # print(get_data_bazos(bazoslink))

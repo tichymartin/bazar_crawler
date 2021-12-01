@@ -16,8 +16,8 @@ def send_mails(links_to_send_by_email, test=False):
             print(f'test - sending a mail with {link_data["link"]}')
         else:
             print(f'tohle neni test - sending a mail with {link_data["link"]}')
-            send_mail_smtplib(link_data)
-            # send_mail_yagmail(link_data)
+            # send_mail_smtplib(link_data)
+            send_mail_yagmail(link_data)
 
 
 def send_mail_yagmail(data):
@@ -25,26 +25,26 @@ def send_mail_yagmail(data):
 
     receiver = "kouril53@gmail.com"
     # receiver = "karelundkarel@gmail.com"
-    # filename = get_image_from_url(data["img_url"])
+    filename = get_image_from_url(data["img_url"])
 
     keywords = ", ".join(data["keywords"])
     price = f'cena: {data["price"]}'
     location = f'místo: {data["location"]}'
     keywords_text = f'klíčová slova: {keywords}'
-    # body = f'{price}\n{location}\n{keywords_text}\n{data["title"]}\n{data["link"]}'
-    body = f'test'
+    body = f'{price}\n{location}\n{keywords_text}\n{data["title"]}\n{data["link"]}'
+    # body = f'test'
 
     yag = yagmail.SMTP("karelundkarel@gmail.com", "hwojpuqybnbmnqbp")
     # yag = yagmail.SMTP("karelundkarel@gmail.com", "karel1karel1")
     yag.send(
         to=receiver,
-        # subject=f'{keywords} {data["price"]}',
-        subject=f'test',
+        subject=f'{keywords} {data["price"]}',
+        # subject=f'test',
         contents=body,
-        # attachments=filename,
+        attachments=filename,
     )
 
-    # os.remove(filename)
+    os.remove(filename)
     logger.info("email send ; " + data["link"])
 
 
@@ -61,7 +61,7 @@ def send_mail_smtplib(data):
     from_addr = "karelundkarel@gmail.com"
     to_addr = "karelundkarel@gmail.com"
     username = "karelundkarel@gmail.com"
-    password = "Bulik01cz"
+    # password = "Bulik01cz"
     password = "karel1karel1"
     keywords = ", ".join(data["keywords"])
 

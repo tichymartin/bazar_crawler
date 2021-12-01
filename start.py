@@ -5,8 +5,6 @@ from general import start_logger, stop_logger
 from data_file import links_dict
 
 if __name__ == '__main__':
-    test = True
-
     logger, timer = start_logger("start")
 
     new_links = get_links_from_website(links_dict)
@@ -18,6 +16,6 @@ if __name__ == '__main__':
     # insert_data_to_db(links_to_send_by_email, links_stopped_by_stop_users, links_stopped_by_stopwords)
     # for link in links_to_send_by_email:
     #     print(len(link["img_url"]))
-    send_mails(links_to_send_by_email, test)
+    send_mails(links_to_send_by_email)
 
     stop_logger(logger, timer)

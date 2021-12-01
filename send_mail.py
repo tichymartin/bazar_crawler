@@ -6,17 +6,17 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 
+import config
 from general import setup_logger
 from get_data import get_image_from_url
 
 
-def send_mails(links_to_send_by_email, test=False):
+def send_mails(links_to_send_by_email):
     for link_data in links_to_send_by_email:
-        if test:
+        if config.TEST:
             print(f'test - sending a mail with {link_data["link"]}')
         else:
             print(f'tohle neni test - sending a mail with {link_data["link"]}')
-            # send_mail_smtplib(link_data)
             send_mail_yagmail(link_data)
 
 

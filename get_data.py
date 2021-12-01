@@ -5,6 +5,7 @@ import urllib.request
 from requests_html import HTMLSession
 from PIL import Image
 
+import config
 
 def get_data_sbazar(link):
     data = {}
@@ -12,6 +13,8 @@ def get_data_sbazar(link):
     r = session.get(link)
 
     data["link"] = link
+    if config.TEST:
+        print(data["link"])
 
     try:
         img = r.html.find("img.ob-c-gallery__img", first=True).attrs
@@ -19,7 +22,7 @@ def get_data_sbazar(link):
 
     except AttributeError:
         data["img_url"] = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
-    print(data["link"])
+
     data["title"] = r.html.find("h1.p-uw-item__header", first=True).text
     # print(data["title"])
 
@@ -52,6 +55,8 @@ def get_data_bazos(link):
     r = session.get(link)
 
     data["link"] = link
+    if config.TEST:
+        print(data["link"])
 
     try:
         img = r.html.find("img.carousel-cell-image", first=True).attrs

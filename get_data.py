@@ -19,7 +19,7 @@ def get_data_sbazar(link):
 
     except AttributeError:
         data["img_url"] = "https://www.maxrestaurantgroup.com/blog/wp-content/uploads/2014/08/rum-barrel-xxx.jpg"
-
+    print(data["link"])
     data["title"] = r.html.find("h1.p-uw-item__header", first=True).text
     # print(data["title"])
 

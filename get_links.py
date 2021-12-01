@@ -38,8 +38,9 @@ def get_links_bazos(raw_url):
                 link_list.append(f"https://{url_base}{link}")
 
         top_tag = r.html.find(".ztop")
-        if len(top_tag) == 0:
+        if not top_tag:
             break
+
         counter += 20
 
     return list(set(link_list))

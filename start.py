@@ -8,8 +8,8 @@ if __name__ == '__main__':
     logger, timer = start_logger("start")
 
     new_links = get_links_from_website(servers_to_search)
-    # print(new_links)
     links_to_check = check_links_in_database(new_links)
+    #TODO predelat tak, ze se kazdy link ulozi do databaze, pak zkontroluje a pak odesle - nemuze nam spadnout cela davka na jednom spatnym mailu
     insert_new_links_into_database(links_to_check)
     data_to_compare_with_sets = search_links_for_metadata(links_to_check)
     links_to_send_by_email, links_stopped_by_stop_users, links_stopped_by_stopwords = compare_keywords(

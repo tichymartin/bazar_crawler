@@ -7,9 +7,7 @@ from data_file import stopusers_set, stopwords_set, keywords_set
 func_dict = {
     "sbazar": [get_links_sbazar, get_data_sbazar],
     "bazos": [get_links_bazos, get_data_bazos],
-    # "letgo": [get_links_letgo, get_data_letgo],
     "annonce": [get_links_annonce, get_data_annonce],
-    # "marketplace": [],
 }
 
 
@@ -19,7 +17,8 @@ def get_links_from_website(servers_to_search):
         new_links_dict[server] = []
 
         for link in servers_to_search[server]:
-            new_links_dict[server].extend(func_dict[server][0](link))
+            new_links = func_dict[server][0](link)
+            new_links_dict[server].extend(new_links)
 
         new_links_dict[server] = list(set(new_links_dict[server]))
 

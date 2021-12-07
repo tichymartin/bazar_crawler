@@ -48,6 +48,24 @@ def send_mail_yagmail(data):
     logger.info("email send ; " + data["link"])
 
 
+def send_error_yagmail(data):
+    logger = setup_logger("error")
+
+    receiver = "kouril53@gmail.com"
+    # receiver = "karelundkarel@gmail.com"
+
+    yag = yagmail.SMTP("karelundkarel@gmail.com", "hwojpuqybnbmnqbp")
+    # yag = yagmail.SMTP("karelundkarel@gmail.com", "karel1karel1")
+
+    yag.send(
+        to=receiver,
+        subject=data["subject"],
+        contents=data["body"],
+    )
+
+    logger.info(f'email send ; {data["subject"]}')
+
+
 def send_mail_smtplib(data):
     logger = setup_logger("email")
     img_path = get_image_from_url(data["img_url"])

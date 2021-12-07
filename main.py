@@ -1,23 +1,23 @@
-from get_links import get_links_bazos, get_links_sbazar, get_links_letgo, get_links_annonce
-from get_data import get_data_bazos, get_data_sbazar, get_data_letgo, get_data_annonce
+from get_links import get_links_bazos, get_links_sbazar, get_links_annonce
 from sql_alchemy_query import query_link
-from sql_alchemy_inserts import insert_link_list, insert_good_ones
+from sql_alchemy_inserts import insert_link_list
 from data_file import stopusers_set, stopwords_set, keywords_set
 
-func_dict = {
-    "sbazar": [get_links_sbazar, get_data_sbazar],
-    "bazos": [get_links_bazos, get_data_bazos],
-    "annonce": [get_links_annonce, get_data_annonce],
+func_dict_get_links = {
+    "sbazar": get_links_sbazar,
+    "bazos": get_links_bazos,
+    "annonce": get_links_annonce,
 }
 
 
 def get_links_from_website(servers_to_search):
     new_links_dict = {}
-    for server in servers_to_search:
+
+    for server, pages in servers_to_search.items():
         new_links_dict[server] = []
 
-        for link in servers_to_search[server]:
-            new_links = func_dict[server][0](link)
+        for page in pages:
+            new_links = func_dict_get_links[server](page)
             new_links_dict[server].extend(new_links)
 
         new_links_dict[server] = list(set(new_links_dict[server]))
@@ -27,10 +27,11 @@ def get_links_from_website(servers_to_search):
 
 def check_links_in_database(new_links_dict):
     links_to_check = {}
+
     for website in new_links_dict:
         links_to_check[website] = []
+
         for link in new_links_dict[website]:
-            # print("kontroluju", link)
             if not query_link(link, website):
                 links_to_check[website].append(link)
 
@@ -38,52 +39,29 @@ def check_links_in_database(new_links_dict):
 
 
 def insert_new_links_into_database(new_links_dict):
-    for website in new_links_dict:
-        insert_link_list(new_links_dict[website], website)
+    for website, new_links in new_links_dict.items():
+        insert_link_list(new_links, website)
 
 
-def search_links_for_metadata(links_to_check):
-    data_to_compare_with_sets = []
-    for website in links_to_check:
-        for link in links_to_check[website]:
-            metadata = func_dict[website][1](link)
-            data_to_compare_with_sets.append(metadata)
+def compare_keywords_one_link(single_data):
+    user = set()
+    user.add(single_data['user'])
 
-    return data_to_compare_with_sets
+    if stopusers_set.intersection(user):
+        # links_stopped_by_stop_users.append(metadata)
+        return
 
+    elif stopwords_set.intersection(single_data["words_set"]):
+        # links_stopped_by_stopwords.append(metadata)
+        return
 
-def compare_keywords(metadata):
-    links_to_send_by_email = []
-    links_stopped_by_stop_users = []
-    links_stopped_by_stopwords = []
+    elif keywords_set.intersection(single_data["words_set"]):
+        single_data["keywords"] = set.intersection(keywords_set, single_data["words_set"])
 
-    for single_data in metadata:
-        user = set()
-        user.add(single_data['user'])
+        return single_data
 
-        if stopusers_set.intersection(user):
-            links_stopped_by_stop_users.append(metadata)
-            continue
-
-        elif stopwords_set.intersection(single_data["words_set"]):
-            single_data["stopwords"] = set.intersection(stopwords_set, single_data["words_set"])
-            links_stopped_by_stopwords.append(metadata)
-            continue
-
-        elif keywords_set.intersection(single_data["words_set"]):
-            single_data["keywords"] = set.intersection(keywords_set, single_data["words_set"])
-            links_to_send_by_email.append(single_data)
-
-        else:
-            continue
-
-    return links_to_send_by_email, links_stopped_by_stop_users, links_stopped_by_stopwords
-
-
-def insert_data_to_db(links_to_send_by_email, links_stopped_by_stop_users, links_stopped_by_stopwords):
-    insert_good_ones(links_to_send_by_email)
-
-    pass
+    else:
+        return
 
 
 if __name__ == "__main__":

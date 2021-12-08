@@ -27,7 +27,7 @@ def link_process(link_dict):
                         print(f'tohle neni test - sending a mail with {link_data["link"]}')
                         send_mail_yagmail(link_data)
 
-            except:
-                error_msg = {"subject": "traceback bazar crawler",
+            except Exception as e:
+                error_msg = {"subject": f"bazar crawler {str(e)} - {link}",
                              "body": repr(traceback.extract_stack())}
                 send_error_yagmail(error_msg, flag=True)

@@ -16,7 +16,7 @@ def send_mails(links_to_send_by_email):
         if config.TEST:
             print(f'test - sending a mail with {link_data["link"]}')
         else:
-            print(f'tohle neni test - sending a mail with {link_data["link"]}')
+            print(f'sending a mail with {link_data["link"]}')
             send_mail_yagmail(link_data)
 
 
@@ -39,7 +39,6 @@ def send_mail_yagmail(data):
     yag.send(
         to=receiver,
         subject=f'{keywords} {data["price"]}',
-        # subject=f'test',
         contents=body,
         attachments=filename,
     )
@@ -48,10 +47,13 @@ def send_mail_yagmail(data):
     logger.info("email send ; " + data["link"])
 
 
-def send_error_yagmail(data):
+def send_error_yagmail(data, flag=None):
     logger = setup_logger("error")
 
-    receiver = "kouril53@gmail.com"
+    if not flag:
+        receiver = "kouril53@gmail.com"
+    else:
+        receiver = "tichymartin@email.cz"
     # receiver = "karelundkarel@gmail.com"
 
     yag = yagmail.SMTP("karelundkarel@gmail.com", "hwojpuqybnbmnqbp")

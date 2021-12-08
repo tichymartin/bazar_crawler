@@ -43,25 +43,25 @@ def insert_new_links_into_database(new_links_dict):
         insert_link_list(new_links, website)
 
 
-def compare_keywords_one_link(single_data):
-    user = set()
-    user.add(single_data['user'])
-
-    if stopusers_set.intersection(user):
-        # links_stopped_by_stop_users.append(metadata)
-        return
-
-    elif stopwords_set.intersection(single_data["words_set"]):
-        # links_stopped_by_stopwords.append(metadata)
-        return
-
-    elif keywords_set.intersection(single_data["words_set"]):
-        single_data["keywords"] = set.intersection(keywords_set, single_data["words_set"])
-
-        return single_data
-
-    else:
-        return
+# def compare_keywords_one_link(single_data):
+#     user = set()
+#     user.add(single_data['user'])
+#
+#     if stopusers_set.intersection(user):
+#         # links_stopped_by_stop_users.append(metadata)
+#         return
+#
+#     elif stopwords_set.intersection(single_data["words_set"]):
+#         # links_stopped_by_stopwords.append(metadata)
+#         return
+#
+#     elif keywords_set.intersection(single_data["words_set"]):
+#         single_data["keywords"] = set.intersection(keywords_set, single_data["words_set"])
+#
+#         return single_data
+#
+#     else:
+#         return
 
 
 if __name__ == "__main__":

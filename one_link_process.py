@@ -29,5 +29,5 @@ def link_process(link_dict):
 
             except:
                 error_msg = {"subject": "traceback bazar crawler",
-                             "body": traceback.print_exc()}
+                             "body": repr(traceback.extract_stack())}
                 send_error_yagmail(error_msg, flag=True)

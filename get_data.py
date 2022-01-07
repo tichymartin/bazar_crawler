@@ -258,11 +258,11 @@ def get_image_from_url(url):
 if __name__ == "__main__":
     letgolink = "https://www.letgo.cz/item/zidle-starozitna-iid-14639209"
     # bazoslink = 'https://nabytek.bazos.cz/inzerat/126194877/sedacka-z-brousene-kuze.php'
-    bazoslink = "https://zvirata.bazos.cz/inzerat/142661276/nevska-maskarada-kotatka-s-pp.php"
+    bazoslink = "https://ostatni.bazos.cz/inzerat/145856056/hodinky-prim.php"
     bazos_img = 'https://www.bazos.cz/img/1/276/142661276.jpg?t=1633553028'
 
     sbazarlink = "https://www.sbazar.cz/bystricka1951/detail/54451585-sleva-obraz-cesky-krumlov-kostel"
     sbazar_img = 'https://d46-a.sdn.cz/d_46/c_img_QR_y/H3VOw9.jpeg?fl=exf|crr,1.33333,2|res,1024,768,1|wrm,/watermark/sbazar.png,10,10|jpg,80,,1'
-    print(get_data_sbazar(sbazarlink))
+    # print(get_data_sbazar(sbazarlink))
     # print(get_image_from_url(sbazar_img))
-    # print(get_data_bazos(bazoslink))
+    print(get_data_bazos(bazoslink))

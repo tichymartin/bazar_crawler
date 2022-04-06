@@ -1,2 +1,2 @@
-# TEST = True
-TEST = False
+TEST = True
+# TEST = False

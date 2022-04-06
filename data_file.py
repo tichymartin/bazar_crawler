@@ -4,7 +4,6 @@
 servers_to_search = {
     "sbazar": [r"524-jidelni-stoly-zidle", r"300-kresla", r"219-starozitny-nabytek", ],
     "bazos": ["nabytek.bazos.cz/kresla", "nabytek.bazos.cz/zidle", "ostatni.bazos.cz", ],
-    "annonce": ["kresla-gauce", "zidle-byt-kancelar", ],
 }
 
 stopwords_set = {'kancelář', 'kanceláře', 'kancelářské', 'kancelářská', 'kancelářský', 'ikea', 'ikei', 'ratanové',
